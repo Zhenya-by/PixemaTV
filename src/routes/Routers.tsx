@@ -10,7 +10,7 @@ import SearchMovies from '../components/SearchMovies/SearchMovies';
 export const Router: React.FC = () => {
   return (
     <Routes>
-      <Route path='/main' element={<Home />} />
+      <Route path='/' element={<Home />} />
       <Route path='/trends' element={<Trends />} />
       <Route path='/favorites' element={<Favorites />} />
       <Route path='/settings' element={<Settings />} />
