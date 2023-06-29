@@ -37,12 +37,7 @@ export const CustomNavLink: React.FC<CustomNavLinkProps> = ({ to, content, svg: 
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
-      {SvgIcon && (
-        <SvgIcon
-          className="svg"
-          fill={currentLinkState !== 'default' ? '$system-colors-secondary' : undefined}
-        />
-      )}
+      {SvgIcon && <SvgIcon className="svg" fill={currentLinkState !== 'default' ? 'currentColor' : undefined} />}
       {content}
     </NavLink>
   );
