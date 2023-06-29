@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,600;1,400&display=swap');
+@import "/src/App.scss";
+
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    background-color: $background-colors-black;
+}
+
+body {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+  }

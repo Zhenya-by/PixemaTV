@@ -1,0 +1,29 @@
+@import "/src/App.scss";
+
+
+header {
+  max-width: 160px;
+  width: 100%;
+  padding: 0 50px;
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    row-gap: 64px;
+    justify-content: center;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      row-gap: 40px;
+
+      .nav-bar--link {
+        a {
+          display: flex;
+          align-items: center;
+          column-gap: 20px;
+        }
+      }
+    }
+  }
+}
