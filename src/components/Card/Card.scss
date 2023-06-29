@@ -1,0 +1,39 @@
+@import "/src/App.scss";
+.card-container {
+  display: flex;
+  width: 100%;
+  min-width: 266px;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin: 56px 0;
+  .movie-card {
+    width: 100%;
+    max-width: 266px;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 396px;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+    .movie-details {
+      width: 100%;
+      max-width: 266px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      h3 {
+        padding-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+        font-size: 18px;
+      }
+      p {
+        margin-top: 4px;
+        font-size: 14px;
+        color: $contextual-colors-light;
+      }
+    }
+  }
+}

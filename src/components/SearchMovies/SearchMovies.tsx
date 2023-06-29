@@ -23,7 +23,7 @@ const SearchMovies: React.FC = () => {
 
   const handleSearch = async () => {
     try {
-      const modifiedSearchQuery = searchQuery.replace(/\s+/g, "*") + "*"; // Replace spaces with '*' to allow matching words written together
+      const modifiedSearchQuery = searchQuery.replace(/\s+/g, "*") + "*";
       const response = await axios.get<SearchResult>(
         `${OMDB_URL}?s=${modifiedSearchQuery}&${API_KEY}`
       );

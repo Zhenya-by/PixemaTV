@@ -14,3 +14,18 @@ body {
     font-size: 16px;
     line-height: 24px;
   }
+
+  input{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  input::placeholder{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: $contextual-colors-white;
+  }
