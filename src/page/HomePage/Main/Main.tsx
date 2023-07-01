@@ -11,8 +11,6 @@ export const Main: FC<IMain> = () => {
         <main>
             <SearchMovies/>
             <Card/>
-            <h3>Cтраница (Home) находится в разработке 0_x</h3>
-            <h3>Cтраница (Home) находится в разработке 0_x</h3>
         </main>
     )
 };

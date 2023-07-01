@@ -9,7 +9,7 @@
     background-color: $background-colors-black;
 }
 
-body {
+body, button {
     font-family: 'Exo 2', sans-serif;
     font-size: 16px;
     line-height: 24px;
@@ -18,6 +18,21 @@ body {
   a {
     color: inherit;
     text-decoration: none;
+  }
+
+  button{
+    background-color: $background-colors-graphite;
+    color: $system-colors-secondary;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: .3s;
+    cursor: pointer;
+  }
+  button:hover{
+    background-color: $background-colors-dark;
+    background-color: $system-colors-primary;
+    color: $contextual-colors-white;
   }
 
   input{
