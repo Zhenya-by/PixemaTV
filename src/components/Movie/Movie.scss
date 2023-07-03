@@ -4,15 +4,15 @@
   display: flex;
   column-gap: 42px;
   width: 100%;
-    &--left{
-        .poster-img {
-            width: 266px;
-            height: 396px;
-            object-fit: cover;
-            border-radius: 20px;
-            outline: 1px solid $background-colors-graphite;
-        }
+  &--left {
+    .poster-img {
+      width: 266px;
+      height: 396px;
+      object-fit: cover;
+      border-radius: 20px;
+      outline: 1px solid $background-colors-graphite;
     }
+  }
   &--right {
     h3 {
     }

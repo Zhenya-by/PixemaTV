@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./SearchMovies.scss";
 import { API_KEY, OMDB_URL } from "../../api/apiKey";
+import Loader from "../Loader/Loader";
+import { Link } from "react-router-dom";
 
 interface Movie {
   Title: string;
@@ -21,6 +23,7 @@ const SearchMovies: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSearch = async (query: string, page: number) => {
     try {
@@ -35,6 +38,7 @@ const SearchMovies: React.FC = () => {
       } else {
         setSearchResults([]);
       }
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -53,12 +57,14 @@ const SearchMovies: React.FC = () => {
   };
 
   const handleNextPage = () => {
+    // setIsLoading(true);
     setCurrentPage((prevPage) => prevPage + 1);
     handleSearch(searchQuery, currentPage + 1);
   };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
+      // setIsLoading(true);
       setCurrentPage((prevPage) => prevPage - 1);
       handleSearch(searchQuery, currentPage - 1);
     }
@@ -66,53 +72,61 @@ const SearchMovies: React.FC = () => {
 
   useEffect(() => {
     if (searchQuery !== "") {
+      // setIsLoading(true);
       handleSearch(searchQuery, currentPage);
     }
   }, [searchQuery, currentPage]);
 
   return (
-    <div className="SearchMovies">
-      <div className="SearchMovies--search-container">
-        <input
-          placeholder="Search"
-          type="text"
-          value={searchQuery}
-          onChange={handleSearchInputChange}
-        />
-        <button>Search</button>
-      </div>
-      {searchResults.length > 0 ? (
-        <ul>
-          {searchResults.map((movie) => (
-            <div key={movie.imdbID}>
-              <li>
-                <img src={movie.Poster} alt={movie.Title} />
-                <div>
-                  <h3>{movie.Title}</h3>
-                  <p>{movie.Year}</p>
-                </div>
-              </li>
-            </div>
-          ))}
-        </ul>
-      ) : (
-        <p></p>
-      )}
-      {searchResults.length > 0 && (
-        <div className="pagination">
-          <button
-            className="prev-button"
-            onClick={handlePrevPage}
-            disabled={currentPage === 1}
-          >
-            Prev Page
-          </button>
-          <button className="next-button" onClick={handleNextPage}>
-            Next Page
-          </button>
+    <>
+      <div className="SearchMovies">
+        <div className="SearchMovies--search-container">
+          <input
+            placeholder="Search"
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+          />
+          <button>Search</button>
         </div>
-      )}
-    </div>
+
+        {searchResults.length > 0 && (
+          <ul className={`list ${searchResults.length > 0 ? "show" : ""}`}>
+            <Loader isLoading={isLoading} />
+            {searchResults.map((movie) => (
+              <div key={movie.imdbID}>
+                <Link to={`/movies/${movie.imdbID}`}>
+                  <li>
+                    <div className="img-poster">
+                      <img src={movie.Poster} alt={movie.Title} />
+                    </div>
+                    <div>
+                      <h3>{movie.Title}</h3>
+                      <p>{movie.Year}</p>
+                    </div>
+                  </li>
+                </Link>
+              </div>
+            ))}
+          </ul>
+        )}
+        {searchResults.length > 0 && (
+          <div className="pagination">
+            {/* <Loader isLoading={isLoading} /> */}
+            <button
+              className="prev-button"
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+            >
+              ◀•••
+            </button>
+            <button className="next-button" onClick={handleNextPage}>
+              •••▶
+            </button>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Card.scss";
+import "../../App.scss";
 import { API_KEY, OMDB_URL } from "../../api/apiKey";
 import { Link, useNavigate } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
 interface Movie {
   Title: string;
@@ -18,7 +20,7 @@ interface CardProps {}
 export const Card: React.FC<CardProps> = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -81,6 +83,7 @@ export const Card: React.FC<CardProps> = () => {
           (movie) => movie !== undefined
         ) as Movie[];
         setMovies((prevMovies) => [...prevMovies, ...filteredMovies]);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
@@ -101,33 +104,36 @@ export const Card: React.FC<CardProps> = () => {
 
   return (
     <>
-    <div className="card-container">
-      {movies.map(
-        (movie) =>
-          // Добавляем проверку на отсутствие изображения
-          movie.Poster !== "N/A" && (
-            <div key={movie.Title} className="movie-card">
-              <Link to={`/movies/${movie.imdbID}`} className="movie-card">
-                <div className="img-poster">
-                  <img src={movie.Poster} alt={movie.Title} />
-                </div>
-                <p className="movie-card--rating">{movie.Rating}</p>
-                <div className="movie-details">
-                  <h3>{movie.Title}</h3>
-                  <span>
-                    <p className="movie-details--p">
-                      {formatGenres(movie.Genre)}
-                    </p>
-                    {/* <p className="movie-details--p">{movie.Year}</p> */}
-                  </span>
-                </div>
-              </Link>
-            </div>
-          )
-          )}
-    </div>
-      <div className="pagination">
-        <button onClick={handleNextPage}>Next Page</button>
+      <Loader isLoading={isLoading} />
+      <div className={`card-container ${isLoading ? "" : "show"}`}>
+        {movies.map(
+          (movie) =>
+            // Добавляем проверку на отсутствие изображения
+            movie.Poster !== "N/A" && (
+              <div key={movie.Title} className="movie-card">
+                <Link to={`/movies/${movie.imdbID}`} className="movie-card">
+                  <div className="img-poster">
+                    <img src={movie.Poster} alt={movie.Title} />
+                  </div>
+                  <p className="movie-card--rating">{movie.Rating}</p>
+                  <div className="movie-details">
+                    <h3>{movie.Title}</h3>
+                    <span>
+                      <p className="movie-details--p">
+                        {formatGenres(movie.Genre)}
+                      </p>
+                      {/* <p className="movie-details--p">{movie.Year}</p> */}
+                    </span>
+                  </div>
+                </Link>
+              </div>
+            )
+        )}
+        <div className="pagination">
+          <div className="pagination-container">
+            <button onClick={handleNextPage}>▼ Page</button>
+          </div>
+        </div>
       </div>
     </>
   );

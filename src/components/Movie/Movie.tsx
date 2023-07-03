@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { API_KEY, OMDB_URL } from "../../api/apiKey";
 import "./Movie.scss";
+import Loader from "../Loader/Loader";
 
 export interface IMovie {
   Poster: string;
@@ -23,6 +24,7 @@ export interface IMovie {
 export const Movie: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [movie, setMovie] = useState<IMovie | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -39,21 +41,27 @@ export const Movie: React.FC = () => {
     fetchMovie();
   }, [id]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer); // Очистка таймера при размонтировании компонента
+  }, []);
 
   const formatGenres = (genres: string | undefined): string => {
-    if (!genres) return '';
+    if (!genres) return "";
 
-    return genres.split(',').join(' • ');
+    return genres.split(",").join(" • ");
   };
 
   return (
     <div>
-      {movie ? (
+      <Loader isLoading={isLoading} />
+      {movie && (
         <div className="movie-container">
           <div className="movie-container--left">
             <img className="poster-img" src={movie.Poster} alt={movie.Title} />
-
-            {/* Other movie information to display */}
           </div>
           <div className="movie-container--right">
             <h3>Genre: {formatGenres(movie.Genre)}</h3>
@@ -88,8 +96,6 @@ export const Movie: React.FC = () => {
             </div>
           </div>
         </div>
-      ) : (
-        <p>Loading movie data...</p>
       )}
     </div>
   );
