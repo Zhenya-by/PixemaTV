@@ -92,7 +92,7 @@ const SearchMovies: React.FC = () => {
 
         {searchResults.length > 0 && (
           <ul className={`list ${searchResults.length > 0 ? "show" : ""}`}>
-            <Loader isLoading={isLoading} />
+            {/* <Loader isLoading={isLoading} /> */}
             {searchResults.map((movie) => (
               <div key={movie.imdbID}>
                 <Link to={`/movies/${movie.imdbID}`}>

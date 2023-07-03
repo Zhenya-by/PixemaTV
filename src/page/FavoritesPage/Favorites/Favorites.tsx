@@ -1,14 +1,9 @@
-import { FC } from 'react';
-import './Favorites.scss';
-import { Container } from '../Container/Container';
+import { useSelector } from "react-redux";
+// import  store  from "../../../Store/store";
+// import { RootState } from "../../../Store/store";
 
-interface IFavorites {
-}
+import { Container } from "../Container/Container";
 
-export const Favorites: FC<IFavorites> = () => {
-    return (
-        <>
-        <Container/>
-        </>
-    )
+export const Favorites: React.FC = () => {
+  return <Container />;
 };

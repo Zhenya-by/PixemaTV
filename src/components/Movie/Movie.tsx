@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import { API_KEY, OMDB_URL } from "../../api/apiKey";
 import "./Movie.scss";
 import Loader from "../Loader/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { Movie } from "../../Store/type";
+
+import { MovieState, addToFavorites } from "../../Store/type";
 
 export interface IMovie {
   Poster: string;
@@ -19,12 +23,14 @@ export interface IMovie {
   Director: string;
   Writer: string;
   Stars: string;
+  imdbID: string;
 }
 
-export const Movie: React.FC = () => {
+export const Movies: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [movie, setMovie] = useState<IMovie | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -34,7 +40,7 @@ export const Movie: React.FC = () => {
         const data = await response.json();
         setMovie(data);
       } catch (error) {
-        console.log("Error fetching movie:", error);
+        console.log('Error fetching movie:', error);
       }
     };
 
@@ -50,18 +56,34 @@ export const Movie: React.FC = () => {
   }, []);
 
   const formatGenres = (genres: string | undefined): string => {
-    if (!genres) return "";
+    if (!genres) return '';
 
-    return genres.split(",").join(" • ");
+    return genres.split(',').join(' • ');
   };
 
+  const handleAddToFavorites = () => {
+    if (movie) {
+      dispatch(addToFavorites(movie));
+    }
+  };
+
+  const isFavoriteMovie = (movie: Movie): boolean => {
+    return favoriteMovies.some((favMovie) => favMovie.imdbID === movie.imdbID);
+  };
+
+  const favoriteMovies = useSelector(
+    (state: MovieState) => state.favoriteMovies
+  );
   return (
     <div>
       <Loader isLoading={isLoading} />
       {movie && (
-        <div className="movie-container">
+        <div className={`movie-container ${isLoading ? '' : 'show'}`}>
           <div className="movie-container--left">
             <img className="poster-img" src={movie.Poster} alt={movie.Title} />
+            <button className={`movie-card--favorite ${
+              isFavoriteMovie(movie) ? "active" : ""
+            }`} onClick={handleAddToFavorites}>Добавить в избранное</button>
           </div>
           <div className="movie-container--right">
             <h3>Genre: {formatGenres(movie.Genre)}</h3>

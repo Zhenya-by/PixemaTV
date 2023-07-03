@@ -3,17 +3,11 @@ import axios from "axios";
 import "./Card.scss";
 import "../../App.scss";
 import { API_KEY, OMDB_URL } from "../../api/apiKey";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
-
-interface Movie {
-  Title: string;
-  Year: string;
-  Poster: string;
-  imdbID: string;
-  Rating?: string;
-  Genre?: string;
-}
+import { Movie, MovieState } from "../../Store/type";
+import { toggleFavoriteMovie } from "../../Store/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 interface CardProps {}
 
@@ -21,6 +15,10 @@ export const Card: React.FC<CardProps> = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const favoriteMovies = useSelector(
+    (state: MovieState) => state.favoriteMovies
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -65,7 +63,7 @@ export const Card: React.FC<CardProps> = () => {
             const data = response.data;
 
             if (data && data.Response === "True") {
-              const movie = {
+              const movie: Movie = {
                 Title: data.Title,
                 Year: data.Year,
                 Poster: data.Poster,
@@ -102,19 +100,38 @@ export const Card: React.FC<CardProps> = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
+  const handleToggleFavorite = (movie: Movie) => {
+    dispatch(toggleFavoriteMovie(movie));
+  };
+
+  const isFavoriteMovie = (movie: Movie): boolean => {
+    return favoriteMovies.some((favMovie) => favMovie.imdbID === movie.imdbID);
+  };
+
   return (
     <>
       <Loader isLoading={isLoading} />
       <div className={`card-container ${isLoading ? "" : "show"}`}>
         {movies.map(
           (movie) =>
-            // Добавляем проверку на отсутствие изображения
             movie.Poster !== "N/A" && (
-              <div key={movie.Title} className="movie-card">
-                <Link to={`/movies/${movie.imdbID}`} className="movie-card">
+              <div key={movie.imdbID} className="movie-card">
                   <div className="img-poster">
+                <Link
+                  to={`/movies/${movie.imdbID}`}
+                  className="movie-card-link"
+                >
                     <img src={movie.Poster} alt={movie.Title} />
+                  </Link>
                   </div>
+                  <button
+                    className={`movie-card--favorite ${
+                      isFavoriteMovie(movie) ? "active" : ""
+                    }`}
+                    onClick={() => handleToggleFavorite(movie)}
+                  >
+                    🤍
+                  </button>
                   <p className="movie-card--rating">{movie.Rating}</p>
                   <div className="movie-details">
                     <h3>{movie.Title}</h3>
@@ -125,7 +142,6 @@ export const Card: React.FC<CardProps> = () => {
                       {/* <p className="movie-details--p">{movie.Year}</p> */}
                     </span>
                   </div>
-                </Link>
               </div>
             )
         )}
