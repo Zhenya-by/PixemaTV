@@ -1,7 +1,12 @@
 .container {
-    margin: 48px 62px;
+  // max-height: 1185px;
+  // row-gap:130px;
+  // height: 100%;
+  // width: 100%;
+  
+    margin: 48px 62px 0 62px;
     display: flex;
     justify-content: space-between;
     column-gap: 146px;
-  
+    // background-color: aquamarine;
   }

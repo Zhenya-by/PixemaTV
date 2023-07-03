@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import './Main.scss';
 import SearchMovies from '../../../components/SearchMovies/SearchMovies';
-import { Card } from '../../../components/Card/Card';
+import { Movies } from '../../../components/Movie/Movie';
 
 interface IMain {
 }
@@ -9,8 +9,8 @@ interface IMain {
 export const Main: FC<IMain> = () => {
     return (
         <main>
-            <SearchMovies/>
-            <Card/>
+            <SearchMovies />
+            <Movies />
         </main>
     )
 };

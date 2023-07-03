@@ -1,16 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,600;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,600;1,400&display=swap");
 @import "/src/App.scss";
 
-*{
-    padding: 0;
-    margin: 0;
-    text-decoration: none;
-    list-style: none;
-    background-color: $background-colors-black;
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  background-color: $background-colors-black;
+  color: $contextual-colors-white;
 }
 
-body {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-  }
+body,
+button {
+  font-family: "Exo 2", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background-color: $background-colors-graphite;
+  color: $system-colors-secondary;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+button:hover {
+  background-color: $background-colors-dark;
+  background-color: $system-colors-primary;
+  color: $contextual-colors-white;
+}
+
+input {
+  font-family: "Exo 2", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+input::placeholder {
+  font-family: "Exo 2", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: $contextual-colors-white;
+}

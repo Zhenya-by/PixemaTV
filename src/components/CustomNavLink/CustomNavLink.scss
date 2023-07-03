@@ -1,0 +1,45 @@
+@import "/src/App.scss";
+
+.link {
+  text-decoration: none;
+  cursor: pointer;
+
+  &.default {
+    color: $system-colors-secondary;
+
+    .svg * {
+      fill: $system-colors-secondary;
+    }
+  }
+
+  &.hover {
+    color: $system-colors-primary-2;
+
+    .svg * {
+      fill: $system-colors-primary-2;
+    }
+  }
+
+  &.active {
+    color: $system-colors-primary;
+
+    .svg * {
+      fill: $system-colors-primary;
+    }
+  }
+
+  &.disabled {
+    color: $background-colors-graphite;
+    cursor: not-allowed;
+
+    .svg * {
+      fill: $background-colors-graphite;
+    }
+  }
+
+  .svg * {
+    height: 24px;
+    width: 24px;
+    transition: fill 0.2s;
+  }
+}
