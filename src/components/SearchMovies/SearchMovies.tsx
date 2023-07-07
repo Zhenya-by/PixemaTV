@@ -4,6 +4,8 @@ import "./SearchMovies.scss";
 import { API_KEY, OMDB_URL } from "../../api/apiKey";
 import Loader from "../Loader/Loader";
 import { Link } from "react-router-dom";
+import { Modal } from "../Modal/Modal";
+import { Filters } from "../../assets/icons";
 
 interface Movie {
   Title: string;
@@ -77,6 +79,19 @@ const SearchMovies: React.FC = () => {
     }
   }, [searchQuery, currentPage]);
 
+
+
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <div className="SearchMovies">
@@ -87,7 +102,11 @@ const SearchMovies: React.FC = () => {
             value={searchQuery}
             onChange={handleSearchInputChange}
           />
-          <button>Search</button>
+      <button className="btn-filters" onClick={openModal}><Filters/></button>
+      <Modal isOpen={isModalOpen} onClose={closeModal} />
+
+
+          <button className="btn-search">Search</button>
         </div>
 
         {searchResults.length > 0 && (

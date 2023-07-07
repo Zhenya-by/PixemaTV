@@ -6,8 +6,10 @@
   margin: 0;
   text-decoration: none;
   list-style: none;
-  background-color: $background-colors-black;
-  // color: $contextual-colors-white;
+}
+
+body{
+    background-color: $background-colors-black;
 }
 
 body,

@@ -1,0 +1,45 @@
+@import "/src/App.scss";
+
+.modal {
+  position: absolute;
+  // top: 184px;
+  right: -100%;
+  // bottom: 0;
+  left: 0;
+  z-index: 2;
+  // height: 100%;
+  background-color: rgba(0, 0, 0, 0.572);
+  transition: right 0.3s ease-in-out;
+}
+
+
+.modal.animate-in {
+  top: -48px;
+  right: 0;
+  height: 100%;
+}
+
+.modal.animate-out {
+  right: -100%;
+}
+
+.modal-content {
+  height: 100%;
+  width: 518px;
+  margin-right: -182px;
+  position: absolute;
+  right: 0;
+  background-color: $background-colors-graphite;
+  padding: 48px 40px 48px 40px;
+  border-radius: 20px 0 0 20px;
+}
+
+.close-button {
+  position: absolute;
+  top: 36px;
+  right: 28px;
+  font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
