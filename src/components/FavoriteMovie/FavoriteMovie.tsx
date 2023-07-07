@@ -52,7 +52,7 @@ export const FavoriteMovie: FC<FavoriteMovieProps> = () => {
           >
             🤍
           </button>
-          <p className="movie-card--rating">{movie.Rating}</p>
+          <p className="movie-card--rating">{movie.imdbRating}</p>
           <div className="movie-details">
             <h3>{movie.Title}</h3>
             <span>

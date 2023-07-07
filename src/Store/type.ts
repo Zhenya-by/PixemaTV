@@ -3,8 +3,8 @@ export interface Movie {
   Year: string;
   Poster: string;
   imdbID: string;
-  Rating?: string;
-  Genre?: string;
+  imdbRating: string;
+  Genre: string;
 }
 
 export interface MovieState {

@@ -68,7 +68,7 @@ export const Card: React.FC<CardProps> = () => {
                 Year: data.Year,
                 Poster: data.Poster,
                 imdbID: data.imdbID,
-                Rating: data.imdbRating,
+                imdbRating: data.imdbRating,
                 Genre: data.Genre,
               };
 
@@ -132,7 +132,7 @@ export const Card: React.FC<CardProps> = () => {
                   >
                     🤍
                   </button>
-                  <p className="movie-card--rating">{movie.Rating}</p>
+                  <p className="movie-card--rating">{movie.imdbRating}</p>
                   <div className="movie-details">
                     <h3>{movie.Title}</h3>
                     <span>
