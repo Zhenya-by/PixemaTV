@@ -3,7 +3,7 @@ import axios from "axios";
 import "./SearchMovies.scss";
 import { API_KEY, OMDB_URL } from "../../api/apiKey";
 import Loader from "../Loader/Loader";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Modal } from "../Modal/Modal";
 import { Filters } from "../../assets/icons";
 
@@ -26,6 +26,7 @@ const SearchMovies: React.FC = () => {
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMovieClicked, setIsMovieClicked] = useState(false);
 
   const handleSearch = async (query: string, page: number) => {
     try {
@@ -55,7 +56,12 @@ const SearchMovies: React.FC = () => {
     } else {
       handleSearch(value, 1);
       setCurrentPage(1);
+      setIsMovieClicked(false);
     }
+  };
+
+  const handleMovieClick = () => {
+    setIsMovieClicked(true);
   };
 
   const handleNextPage = () => {
@@ -79,10 +85,6 @@ const SearchMovies: React.FC = () => {
     }
   }, [searchQuery, currentPage]);
 
-
-
-
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -95,26 +97,34 @@ const SearchMovies: React.FC = () => {
   return (
     <>
       <div className="SearchMovies">
-        <div className="SearchMovies--search-container">
-          <input
+        <div
+          className={`SearchMovies--search-container ${
+            isMovieClicked ? "hide" : ""
+          }`}
+        >
+          <Modal isOpen={isModalOpen} onClose={closeModal} />
+          <input className="search-input"
             placeholder="Search"
             type="text"
             value={searchQuery}
             onChange={handleSearchInputChange}
           />
-      <button className="btn-filters" onClick={openModal}><Filters/></button>
-      <Modal isOpen={isModalOpen} onClose={closeModal} />
+          <button className="btn-filters" onClick={openModal}>
+            <Filters />
+          </button>
 
-
-          <button className="btn-search">Search</button>
+          
         </div>
 
-        {searchResults.length > 0 && (
+        {searchResults.length > 0 && !isMovieClicked && (
           <ul className={`list ${searchResults.length > 0 ? "show" : ""}`}>
             {/* <Loader isLoading={isLoading} /> */}
             {searchResults.map((movie) => (
               <div key={movie.imdbID}>
-                <Link to={`/movies/${movie.imdbID}`}>
+                <Link
+                  to={`/search/movies/${movie.imdbID}`}
+                  onClick={handleMovieClick}
+                >
                   <li>
                     <div className="img-poster">
                       <img src={movie.Poster} alt={movie.Title} />
@@ -127,8 +137,6 @@ const SearchMovies: React.FC = () => {
                 </Link>
               </div>
             ))}
-          </ul>
-        )}
         {searchResults.length > 0 && (
           <div className="pagination">
             {/* <Loader isLoading={isLoading} /> */}
@@ -143,6 +151,8 @@ const SearchMovies: React.FC = () => {
               •••▶
             </button>
           </div>
+        )}
+          </ul>
         )}
       </div>
     </>

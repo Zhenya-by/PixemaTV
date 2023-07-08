@@ -66,6 +66,4 @@ export const FavoriteMovie: FC<FavoriteMovieProps> = () => {
   );
 };
 
-function dispatch(arg0: { type: string; movie: Movie }) {
-  throw new Error("Function not implemented.");
-}
+

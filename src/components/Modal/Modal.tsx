@@ -20,7 +20,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     setIsAnimating(false);
     setTimeout(() => {
       onClose();
-    }, 300);
+    }, 500);
   };
 
   return (
@@ -32,16 +32,18 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               &times;
             </button>
             <h2>Filtres</h2>
-            <div className='box-input-filters'>
+            
             <h3>Movie name</h3>
             <input className='input-filters' type="text" />
-            </div>
-
+            
+            
             <h3>Year</h3>
             <input className='input-filters' type="text" />
-
+            
+            
             <h3>Movie type</h3>
             <input className='input-filters' type="text" />
+            
           </div>
         </div>
       )}

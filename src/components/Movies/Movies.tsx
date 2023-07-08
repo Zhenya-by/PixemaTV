@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { API_KEY, OMDB_URL } from "../../api/apiKey";
-import "./Movie.scss";
+import "./Movies.scss";
 import Loader from "../Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { Movie } from "../../Store/type";
-
 import { MovieState, addToFavorites } from "../../Store/type";
+import { getMovie } from "../../api/getMovie";
 
 export interface IMovie {
   Poster: string;
@@ -27,20 +26,16 @@ export interface IMovie {
 }
 
 export const Movies: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
   const [movie, setMovie] = useState<IMovie | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchMovie = async () => {
-      try {
-        const URL = `${OMDB_URL}?i=${id}&${API_KEY}`;
-        const response = await fetch(URL);
-        const data = await response.json();
+      if (id !== undefined) {
+        const data = await getMovie(id);
         setMovie(data);
-      } catch (error) {
-        console.log('Error fetching movie:', error);
       }
     };
 
@@ -48,12 +43,11 @@ export const Movies: React.FC = () => {
   }, [id]);
 
   useEffect(() => {
+    setIsLoading(false);
     const timer = setTimeout(() => {
-      setIsLoading(false);
     }, 1000);
 
-    return () => clearTimeout(timer); // Очистка таймера при размонтировании компонента
-  }, []);
+  }, [id]);
 
   const formatGenres = (genres: string | undefined): string => {
     if (!genres) return '';
@@ -81,9 +75,8 @@ export const Movies: React.FC = () => {
         <div className={`movie-container ${isLoading ? '' : 'show'}`}>
           <div className="movie-container--left">
             <img className="poster-img" src={movie.Poster} alt={movie.Title} />
-            <button className={`movie-card--favorite ${
-              isFavoriteMovie(movie) ? "active" : ""
-            }`} onClick={handleAddToFavorites}>Добавить в избранное</button>
+            <button className={`movie-card--favorite ${isFavoriteMovie(movie) ? "active" : ""
+              }`} onClick={handleAddToFavorites}>Добавить в избранное</button>
           </div>
           <div className="movie-container--right">
             <h3>Genre: {formatGenres(movie.Genre)}</h3>
