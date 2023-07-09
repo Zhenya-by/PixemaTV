@@ -1,25 +1,44 @@
 @import "/src/App.scss";
-.card-wrap{
-    display: flex;
-    width: 100%;
-    min-width: 266px;
-    flex-wrap: wrap;
-    gap: 40px;
-    margin: 56px 0 9px 0;
-    transition: all 1s;
-    animation: fade-in 1s ease-in-out forwards;
+.card-wrap {
+  display: flex;
+  width: 100%;
+  min-width: 266px;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin: 56px 0 9px 0;
+  transition: all 1s;
+  animation: fade-in 1s ease-in-out forwards;
 
-    @keyframes fade-in {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
+  .no-movies {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    h2 {
+      color: $contextual-colors-light;
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    // .favorite-no-movies{
+    //   &__wrap{
+    //   }
+    // }
+  }
   .movie-card {
     position: relative;
     z-index: 1;
@@ -72,14 +91,13 @@
       right: 10px;
       padding: 4px 14px;
       background-color: $system-colors-primary;
-    //   color: $contextual-colors-white;
+      //   color: $contextual-colors-white;
       width: max-content;
       border-radius: 10px;
       cursor: pointer;
       z-index: 2;
-
     }
-    .active{
+    .active {
       background-color: $contextual-colors-error;
     }
 
@@ -114,8 +132,6 @@
     }
   }
 
-
-
   .movie-card:hover {
     color: $system-colors-primary;
 
@@ -146,15 +162,15 @@
     transition-delay: 0.1s;
   }
 
-.pagination {
-  justify-content: center;
-  display: flex;
-  gap: 40px;
-  width: 100%;
-
-  .pagination-container {
-    display: flex;
+  .pagination {
     justify-content: center;
+    display: flex;
+    gap: 40px;
+    width: 100%;
+
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+    }
   }
-}
 }

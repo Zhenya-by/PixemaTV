@@ -11,12 +11,14 @@ export const Router: React.FC = () => {
   return (
     <Routes>
       <Route path='/' element={<Home />} />
+      <Route path='/home' element={<Home />} />
       <Route path='/trends' element={<Trends />} />
       <Route path='/favorites' element={<Favorites />} />
       <Route path='/settings' element={<Settings />} />
       <Route path='/search/movies/:id' element={<MovieFull />} />
       
       <Route path='/movies/:id' element={<MovieFull />} />
+      <Route path='*' element={<>Ой, тут ничего нет.</>} />
       {/* Другие маршруты вашего приложения */}
     </Routes>
   );

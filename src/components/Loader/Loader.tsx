@@ -12,13 +12,17 @@ const Loader: React.FC<LoaderProps> = ({ isLoading, children }) => {
   }
 
   return (
-    <div className="wrap-loader">
-      <div className="flex">
-        <div className="loader"></div>
+    <>
+      <div className="ddd">
+        <div className="wrap-loader">
+          <div className="flex">
+            <div className="loader"></div>
+          </div>
+          {children}
+        <div className="load-text"><p>Loading...</p></div>
+        </div>
       </div>
-      <div className="load-text"><p>Loading...</p></div>
-      {children}
-    </div>
+    </>
   );
 };
 

@@ -10,7 +10,6 @@ export const Main: FC<IMain> = () => {
         <main>
             <SearchMovies />
             <h3>Cтраница (Settings) находится в разработке 0_x</h3>
-            <h3>Cтраница (Settings) находится в разработке 0_x</h3>
         </main>
     )
 };

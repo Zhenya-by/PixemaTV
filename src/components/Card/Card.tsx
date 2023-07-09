@@ -9,7 +9,9 @@ import { Movie, MovieState } from "../../Store/type";
 import { toggleFavoriteMovie } from "../../Store/actions";
 import { useDispatch, useSelector } from "react-redux";
 
-interface CardProps {}
+interface CardProps {
+
+}
 
 export const Card: React.FC<CardProps> = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -110,38 +112,38 @@ export const Card: React.FC<CardProps> = () => {
 
   return (
     <>
+
       <Loader isLoading={isLoading} />
       <div className={`card-container ${isLoading ? "" : "show"}`}>
         {movies.map(
           (movie) =>
             movie.Poster !== "N/A" && (
               <div key={movie.imdbID} className="movie-card">
-                  <div className="img-poster">
-                <Link
-                  to={`/movies/${movie.imdbID}`}
-                  className="movie-card-link"
-                >
+                <div className="img-poster">
+                  <Link
+                    to={`/movies/${movie.imdbID}`}
+                    className="movie-card-link"
+                  >
                     <img src={movie.Poster} alt={movie.Title} />
                   </Link>
-                  </div>
-                  <button
-                    className={`movie-card--favorite ${
-                      isFavoriteMovie(movie) ? "active" : ""
+                </div>
+                <button
+                  className={`movie-card--favorite ${isFavoriteMovie(movie) ? "active" : ""
                     }`}
-                    onClick={() => handleToggleFavorite(movie)}
-                  >
-                    🤍
-                  </button>
-                  <p className="movie-card--rating">{movie.imdbRating}</p>
-                  <div className="movie-details">
-                    <h3>{movie.Title}</h3>
-                    <span>
-                      <p className="movie-details--p">
-                        {formatGenres(movie.Genre)}
-                      </p>
-                      {/* <p className="movie-details--p">{movie.Year}</p> */}
-                    </span>
-                  </div>
+                  onClick={() => handleToggleFavorite(movie)}
+                >
+                  🤍
+                </button>
+                <p className="movie-card--rating">{movie.imdbRating}</p>
+                <div className="movie-details">
+                  <h3>{movie.Title}</h3>
+                  <span>
+                    <p className="movie-details--p">
+                      {formatGenres(movie.Genre)}
+                    </p>
+                    {/* <p className="movie-details--p">{movie.Year}</p> */}
+                  </span>
+                </div>
               </div>
             )
         )}

@@ -6,6 +6,8 @@ import Loader from "../Loader/Loader";
 import { Link, NavLink } from "react-router-dom";
 import { Modal } from "../Modal/Modal";
 import { Filters } from "../../assets/icons";
+import { UserInfo } from "../UserInfo/UserInfo";
+import { Input } from "../Input/Input";
 
 interface Movie {
   Title: string;
@@ -103,6 +105,7 @@ const SearchMovies: React.FC = () => {
           }`}
         >
           <Modal isOpen={isModalOpen} onClose={closeModal} />
+          <div className="search-wrap">
           <input className="search-input"
             placeholder="Search"
             type="text"
@@ -112,6 +115,8 @@ const SearchMovies: React.FC = () => {
           <button className="btn-filters" onClick={openModal}>
             <Filters />
           </button>
+          </div>
+          <UserInfo username={"Evgeni Minko"}/>
 
           
         </div>

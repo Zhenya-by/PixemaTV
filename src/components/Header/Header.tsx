@@ -17,13 +17,13 @@ export const Header: FC<IHeader> = () => {
       <header>
         <nav>
           <div>
-            <NavLink to="/">
+            <NavLink to="/home">
               <Logo />
             </NavLink>
           </div>
           <ul className="nav-bar">
               <li className="nav-bar--link">
-              <CustomNavLink to="/" content="Home" svg={Home} />
+              <CustomNavLink to="/home" content="Home" svg={Home} />
               </li>
               <li className="nav-bar--link">
                 <CustomNavLink to="/trends" content="Trends" svg={Trends}  />
