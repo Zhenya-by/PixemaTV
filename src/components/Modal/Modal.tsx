@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Modal.scss';
+import DropdownMovieType from '../DropdownMovieType/DropdownMovieType';
 
 interface ModalProps {
   isOpen: boolean;
@@ -42,8 +43,9 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             
             
             <h3>Movie type</h3>
-            <input className='input-filters' type="text" />
+            {/* <input className='input-filters' type="text" /> */}
             
+            <DropdownMovieType/>
           </div>
         </div>
       )}

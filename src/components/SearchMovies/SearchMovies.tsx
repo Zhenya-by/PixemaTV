@@ -130,7 +130,7 @@ const SearchMovies: React.FC = () => {
                   to={`/search/movies/${movie.imdbID}`}
                   onClick={handleMovieClick}
                 >
-                  <li>
+                  <li className="list-search">
                     <div className="img-poster">
                       <img src={movie.Poster} alt={movie.Title} />
                     </div>
