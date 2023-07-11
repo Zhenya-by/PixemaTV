@@ -46,7 +46,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
       .then((response) => {
         console.log(response.data);
         setMovies(response.data.Search || []);
-        navigate('/search-results');
+        navigate('/search-results', { state: { movies: response.data.Search || [] } });
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);
@@ -80,15 +80,6 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             <h3>Movie type</h3>
             <DropdownMovieType onTypeSelect={setMovieType} />
             <button onClick={searchMovies}>Search</button>
-
-            <h2>Search Results</h2>
-            <ul>
-              {movies.map((movie) => (
-                <li key={movie.Title}>
-                  {movie.Title} ({movie.Year}) - {movie.Type}
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       )}

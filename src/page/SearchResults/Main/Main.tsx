@@ -10,7 +10,7 @@ export const Main: FC<IMain> = () => {
     return (
         <main>
             <SearchMovies />
-            <SearchFilter/>
+            <SearchFilter movies={[]}/>
             <h3>Cтраница (Settings) находится в разработке 0_x</h3>
             <h3>Cтраница (Settings) находится в разработке 0_x</h3>
         </main>
