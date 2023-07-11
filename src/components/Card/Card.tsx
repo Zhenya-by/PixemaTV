@@ -5,20 +5,19 @@ import "../../App.scss";
 import { API_KEY, OMDB_URL } from "../../api/apiKey";
 import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
-import { Movie, MovieState } from "../../Store/type";
-import { toggleFavoriteMovie } from "../../Store/actions";
+import { Movie, MovieState } from "../../Store/reducer";
+import { toggleFavoriteMovie } from "../../Store/reducer";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../Store/store";
 
-interface CardProps {
-
-}
+interface CardProps {}
 
 export const Card: React.FC<CardProps> = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const favoriteMovies = useSelector(
-    (state: MovieState) => state.favoriteMovies
+    (state: RootState) => state.movie.favoriteMovies
   );
   const dispatch = useDispatch();
 
@@ -79,9 +78,7 @@ export const Card: React.FC<CardProps> = () => {
           });
 
         const movieData = await Promise.all(moviePromises);
-        const filteredMovies = movieData.filter(
-          (movie) => movie !== undefined
-        ) as Movie[];
+        const filteredMovies = movieData.filter((movie) => movie !== undefined) as Movie[];
         setMovies((prevMovies) => [...prevMovies, ...filteredMovies]);
         setIsLoading(false);
       } catch (error) {
@@ -107,46 +104,38 @@ export const Card: React.FC<CardProps> = () => {
   };
 
   const isFavoriteMovie = (movie: Movie): boolean => {
-    return favoriteMovies.some((favMovie) => favMovie.imdbID === movie.imdbID);
+    return (
+      favoriteMovies &&
+      favoriteMovies.some((favMovie: Movie) => favMovie.imdbID === movie.imdbID)
+    );
   };
 
   return (
     <>
-
       <Loader isLoading={isLoading} />
       <div className={`card-container ${isLoading ? "" : "show"}`}>
-        {movies.map(
-          (movie) =>
-            movie.Poster !== "N/A" && (
-              <div key={movie.imdbID} className="movie-card">
-                <div className="img-poster">
-                  <Link
-                    to={`/movies/${movie.imdbID}`}
-                    className="movie-card-link"
-                  >
-                    <img src={movie.Poster} alt={movie.Title} />
-                  </Link>
-                </div>
-                <button
-                  className={`movie-card--favorite ${isFavoriteMovie(movie) ? "active" : ""
-                    }`}
-                  onClick={() => handleToggleFavorite(movie)}
-                >
-                  🤍
-                </button>
-                <p className="movie-card--rating">{movie.imdbRating}</p>
-                <div className="movie-details">
-                  <h3>{movie.Title}</h3>
-                  <span>
-                    <p className="movie-details--p">
-                      {formatGenres(movie.Genre)}
-                    </p>
-                    {/* <p className="movie-details--p">{movie.Year}</p> */}
-                  </span>
-                </div>
-              </div>
-            )
-        )}
+        {movies.map((movie) => movie.Poster !== "N/A" && (
+          <div key={movie.imdbID} className="movie-card">
+            <div className="img-poster">
+              <Link to={`/movies/${movie.imdbID}`} className="movie-card-link">
+                <img src={movie.Poster} alt={movie.Title} />
+              </Link>
+            </div>
+            <button
+              className={`movie-card--favorite ${isFavoriteMovie(movie) ? "active" : ""}`}
+              onClick={() => handleToggleFavorite(movie)}
+            >
+              🤍
+            </button>
+            <p className="movie-card--rating">{movie.imdbRating}</p>
+            <div className="movie-details">
+              <h3>{movie.Title}</h3>
+              <span>
+                <p className="movie-details--p">{formatGenres(movie.Genre)}</p>
+              </span>
+            </div>
+          </div>
+        ))}
         <div className="pagination">
           <div className="pagination-container">
             <button onClick={handleNextPage}>▼ Page</button>

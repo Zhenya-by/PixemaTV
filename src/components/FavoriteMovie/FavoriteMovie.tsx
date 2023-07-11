@@ -1,20 +1,20 @@
-import { FC, useState, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import "./FavoriteMovie.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { Movie, MovieState } from "../../Store/type";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../Store/store";
+import { Movie } from "../../Store/reducer";
 import { Link } from "react-router-dom";
-import { toggleFavoriteMovie } from "../../Store/actions";
+import { toggleFavoriteMovie } from "../../Store/reducer";
 import { FavoriteNoMovies } from "../../assets/images/image";
 import Loader from "../Loader/Loader";
 
-interface FavoriteMovieProps { }
+interface FavoriteMovieProps {}
 
 export const FavoriteMovie: FC<FavoriteMovieProps> = () => {
   const [isLoading, setIsLoading] = useState(true);
   const favoriteMovies = useSelector(
-    (state: MovieState) => state.favoriteMovies
+    (state: RootState) => state.movie.favoriteMovies
   );
-
   const dispatch = useDispatch();
 
   const handleToggleFavorite = (movie: Movie) => {
@@ -33,7 +33,7 @@ export const FavoriteMovie: FC<FavoriteMovieProps> = () => {
 
   useEffect(() => {
     setIsLoading(false);
-  })
+  }, []);
 
   return (
     <div className="card-wrap">
@@ -52,8 +52,9 @@ export const FavoriteMovie: FC<FavoriteMovieProps> = () => {
               </Link>
             </div>
             <button
-              className={`movie-card--favorite ${isFavoriteMovie(movie) ? "active" : ""
-                }`}
+              className={`movie-card--favorite ${
+                isFavoriteMovie(movie) ? "active" : ""
+              }`}
               onClick={() => handleToggleFavorite(movie)}
             >
               🤍
@@ -63,7 +64,6 @@ export const FavoriteMovie: FC<FavoriteMovieProps> = () => {
               <h3>{movie.Title}</h3>
               <span>
                 <p className="movie-details--p">{formatGenres(movie.Genre)}</p>
-                {/* <p className="movie-details--p">{movie.Year}</p> */}
               </span>
             </div>
           </div>
@@ -72,5 +72,3 @@ export const FavoriteMovie: FC<FavoriteMovieProps> = () => {
     </div>
   );
 };
-
-

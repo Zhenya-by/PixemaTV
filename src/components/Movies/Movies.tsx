@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import "./Movies.scss";
 import Loader from "../Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { Movie } from "../../Store/type";
-import { MovieState, addToFavorites } from "../../Store/type";
+import { toggleFavoriteMovie, Movie } from "../../Store/reducer";
 import { getMovie } from "../../api/getMovie";
+import { RootState } from "../../Store/store";
 
 export interface IMovie {
   Poster: string;
@@ -36,47 +36,57 @@ export const Movies: React.FC = () => {
       if (id !== undefined) {
         const data = await getMovie(id);
         setMovie(data);
+        setIsLoading(false);
       }
     };
 
     fetchMovie();
   }, [id]);
 
-  useEffect(() => {
-    setIsLoading(false);
-    const timer = setTimeout(() => {
-    }, 1000);
 
-  }, [id]);
 
   const formatGenres = (genres: string | undefined): string => {
-    if (!genres) return '';
+    if (!genres) return "";
 
-    return genres.split(',').join(' • ');
+    return genres.split(",").join(" • ");
   };
 
   const handleAddToFavorites = () => {
     if (movie) {
-      dispatch(addToFavorites(movie));
+      dispatch(toggleFavoriteMovie(movie));
     }
   };
 
   const isFavoriteMovie = (movie: Movie): boolean => {
-    return favoriteMovies.some((favMovie) => favMovie.imdbID === movie.imdbID);
+    return (
+      favoriteMovies &&
+      favoriteMovies.some((favMovie: Movie) => favMovie.imdbID === movie.imdbID)
+    );
   };
 
   const favoriteMovies = useSelector(
-    (state: MovieState) => state.favoriteMovies
+    (state: RootState) => state.movie.favoriteMovies
   );
+
   return (
     <div>
       <Loader isLoading={isLoading} />
       {movie && (
-        <div className={`movie-container ${isLoading ? '' : 'show'}`}>
+        <div className={`movie-container ${isLoading ? "" : "show"}`}>
           <div className="movie-container--left">
-            <img className="poster-img" src={movie.Poster} alt={movie.Title} />
-            <button className={`movie-card--favorite ${isFavoriteMovie(movie) ? "active" : ""
-              }`} onClick={handleAddToFavorites}>Добавить в избранное</button>
+            <img
+              className="poster-img"
+              src={movie.Poster}
+              alt={movie.Title}
+            />
+            <button
+              className={`movie-card--favorite ${
+                isFavoriteMovie(movie) ? "active" : ""
+              }`}
+              onClick={handleAddToFavorites}
+            >
+              Добавить в избранное
+            </button>
           </div>
           <div className="movie-container--right">
             <h3>Genre: {formatGenres(movie.Genre)}</h3>
@@ -88,7 +98,7 @@ export const Movies: React.FC = () => {
             </div>
             <p className="plot">Plot: {movie.Plot}</p>
             <div className="box-movie">
-              <div className="movie-container--right--list-box">
+              <div className="movre-container--right--list-box">
                 <p>Year:</p>
                 <p>Released:</p>
                 <p>Box Office:</p>
