@@ -1,5 +1,6 @@
 # Pixematv
-
+<img>![image](https://github.com/Zhenya-by/pixematv/assets/100441082/4370f9c6-3bfa-4d73-9258-90cefbdd74d1)
+</img>
 # Description
 Hi, I present you my React application, Pixematv.
 It realizes: Search by page, add movies to favorites, there is a filter by year and movie title.
