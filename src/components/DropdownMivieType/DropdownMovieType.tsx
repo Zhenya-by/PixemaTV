@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./DropdownMovieType.scss"
+import "./DropdownMovieType.scss";
 import { ChevronBtn } from '../../assets/icons';
 
 export type MovieType = 'movie' | 'series' | 'episode';
@@ -19,8 +19,8 @@ const DropdownMovieType: React.FC<DropdownMovieTypeProps> = ({ onTypeSelect }) =
   const handleItemClick = (type: MovieType) => {
     console.log(`Вы выбрали тип фильма: ${type}`);
     setSelectedType(type);
-    setIsOpen(false); // Закрыть меню после выбора типа
-    onTypeSelect(type); // Передать тип фильма в родительский компонент
+    setIsOpen(false);
+    onTypeSelect(type);
   };
 
   return (

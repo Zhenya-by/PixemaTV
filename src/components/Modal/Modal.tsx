@@ -20,7 +20,6 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [movieName, setMovieName] = useState("");
   const [year, setYear] = useState("");
   const [movieType, setMovieType] = useState<MovieType | undefined>(undefined);
-  const [movies, setMovies] = useState<Movie[]>([]);
 
   const navigate = useNavigate();
 
@@ -45,13 +44,8 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
       .get(url)
       .then((response) => {
         console.log(response.data);
-        setMovies(response.data.Search || []);
         navigate('/search-results', { state: { movies: response.data.Search || [] } });
       })
-      .catch((error) => {
-        console.error("Error fetching movies:", error);
-        // Обработка ошибки
-      });
   };
 
   return (

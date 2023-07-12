@@ -98,7 +98,7 @@ export const Movies: React.FC = () => {
             </div>
             <p className="plot">Plot: {movie.Plot}</p>
             <div className="box-movie">
-              <div className="movre-container--right--list-box">
+              <div className="movie-container--left--list-box">
                 <p>Year:</p>
                 <p>Released:</p>
                 <p>Box Office:</p>
@@ -106,7 +106,6 @@ export const Movies: React.FC = () => {
                 <p>Actors:</p>
                 <p>Director:</p>
                 <p>Writer:</p>
-                <p>Stars:</p>
               </div>
               <div className="movie-container--right--list-box">
                 <p>{movie.Year}</p>
@@ -116,7 +115,6 @@ export const Movies: React.FC = () => {
                 <p>{movie.Actors}</p>
                 <p>{movie.Director}</p>
                 <p>{movie.Writer}</p>
-                <p>{movie.Stars}</p>
               </div>
             </div>
           </div>
