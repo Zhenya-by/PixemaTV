@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./DropdownMovieType.scss";
 import { ChevronBtn } from '../../assets/icons';
 
-export type MovieType = 'movie' | 'series' | 'episode';
+export type MovieType = 'movie' | 'series' | 'episode' | 'select movie type';
 
 export interface DropdownMovieTypeProps {
   onTypeSelect: (type: MovieType) => void;
@@ -10,7 +10,7 @@ export interface DropdownMovieTypeProps {
 
 const DropdownMovieType: React.FC<DropdownMovieTypeProps> = ({ onTypeSelect }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedType, setSelectedType] = useState<MovieType>('movie');
+  const [selectedType, setSelectedType] = useState<MovieType>('select movie type');
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
