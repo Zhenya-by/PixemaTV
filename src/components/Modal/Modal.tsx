@@ -79,7 +79,9 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             />
             <h3>Movie type</h3>
             <DropdownMovieType onTypeSelect={setMovieType} />
-            <button onClick={searchMovies}>Search</button>
+            <div className="btnSearch__wrap">
+              <button className="btnSearch" onClick={searchMovies}>Search</button>
+            </div>
           </div>
         </div>
       )}

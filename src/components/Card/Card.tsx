@@ -13,9 +13,9 @@ import { RootState } from "../../Store/store";
 interface CardProps {}
 
 export const Card: React.FC<CardProps> = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
   const favoriteMovies = useSelector(
     (state: RootState) => state.movie.favoriteMovies
   );
@@ -23,6 +23,7 @@ export const Card: React.FC<CardProps> = () => {
 
   useEffect(() => {
     const fetchMovies = async () => {
+      setIsLoading(true)
       try {
         const movieIds = [
           "tt0111161",

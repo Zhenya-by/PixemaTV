@@ -51,6 +51,18 @@
     background: $background-colors-graphite;
     color: $system-colors-primary;
   }
+  .btnSearch__wrap{
+    padding-top: 40px;
+    margin-right: 40px;
+    margin-left: 40px;
+    display: flex;
+    float: right;
+    // flex-direction: column-reverse;
+    .btnSearch{
+      padding: 15px 40px;
+
+    }
+  }
 }
 
 .close-button {

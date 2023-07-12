@@ -142,13 +142,23 @@
   }
 }
 
-.pagination {
+ .pagination {
   justify-content: center;
   display: flex;
-  // flex-direction: column;
   gap: 40px;
   width: 100%;
+  animation: fade-in 2s ease-in-out forwards;
 
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
   .pagination-container {
     display: flex;
     justify-content: center;

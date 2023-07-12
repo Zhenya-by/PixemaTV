@@ -10,11 +10,13 @@ export interface Movie {
 }
 
 export interface MovieState {
+  isOpen: any;
   favoriteMovies: Movie[];
 }
 
 const initialState: MovieState = {
   favoriteMovies: [],
+  isOpen: undefined
 };
 
 const movieSlice = createSlice({
