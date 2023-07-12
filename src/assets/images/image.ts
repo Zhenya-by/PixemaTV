@@ -1,0 +1,1 @@
+export { ReactComponent as FavoriteNoMovies } from '../images/FavoriteNoMovies.svg';

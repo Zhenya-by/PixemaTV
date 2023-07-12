@@ -1,22 +1,24 @@
+@import "/src/App.scss";
 .userinfo {
     display: flex;
     align-items: center;
-    justify-content: center;
-    column-gap: 16px;
-    color: #fff;
+    justify-content: space-between;
+    column-gap: 20px;
+    color: $contextual-colors-white;
     font-size: 16px;
     font-weight: 600;
-    width: 236px;
-    height: 83px;
-    background-color: #2231aa;
 
     &__initials {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 48px;
-        height: 48px;
-        border-radius: 2px;
-        background-color: #5360cd;
+        width: 56px;
+        height: 56px;
+        border-radius: 10px;
+        background-color: $system-colors-primary;
+    }
+
+    &__name{
+        width: max-content;
     }
 }
