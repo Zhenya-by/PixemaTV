@@ -1,0 +1,19 @@
+.signIn-wrap{
+    background-image: url(../../../assets/images/MovieImg.png);
+    background-size: cover;
+    max-width: 2540px;
+    height: 1289px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    
+    
+}
+.logoImg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 48px;
+    padding-left: 62px;
+}
