@@ -61,6 +61,7 @@ export const SearchFilter: FC<ISearchFilter> = ({}) => {
               <span>
                 <p className="movie-details--p">{movie.Year}</p>
                 <p className="movie-details--p">{movie.Type}</p>
+                <p className="movie-details--p">{movie.Genre}</p>
               </span>
             </div>
           </div>

@@ -1,0 +1,34 @@
+@import "/src/App.scss";
+
+form {
+    margin-top: 56px;
+    h2 {
+        margin-bottom: 16px;
+    }
+    .inputWrap {
+        border-radius: 10px;
+        margin-bottom: 40px;
+        padding: 40px;
+        background-color: $background-colors-dark;
+        display: flex;
+        column-gap: 40px;
+        &__input{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            row-gap: 24px;
+        }
+    
+    }
+    .formBtn-Wrap{
+        display: flex;
+        column-gap: 40px;
+        justify-content: end;
+        button{
+            // float: right;
+            padding: 16px 108px;
+            display: flex;
+            column-gap: 40px;
+        }
+    }
+}
