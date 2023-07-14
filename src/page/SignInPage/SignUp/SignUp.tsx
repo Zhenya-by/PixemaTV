@@ -1,14 +1,13 @@
 import { FC, useState } from 'react';
-import './SignIn.scss';
+import './SignUp.scss';
 import { Link } from 'react-router-dom';
 import { Logo } from '../../../components/Logo/Logo';
-import { FormSignIn } from '../FormSignIn/FormSignIn';
-import { Input } from './Input/Input';
+import { FormSignUp } from '../FormSignUp/FormSignUp';
 
-interface ISignIn {
+interface ISignUp {
 }
 
-export const SignIn: FC<ISignIn> = () => {
+export const SignUp: FC<ISignUp> = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,9 +34,9 @@ export const SignIn: FC<ISignIn> = () => {
             <Link to='/home'>
                 <div className='logoImg'><Logo/></div>
             </Link>
-            <FormSignIn>
+            <FormSignUp>
 
-            </FormSignIn>
+            </FormSignUp>
         </div>
     )
 };

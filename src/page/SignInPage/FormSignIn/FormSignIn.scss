@@ -13,6 +13,17 @@
         border-radius: 10px;
         display: flex;
     flex-direction: column;
+    position: relative;
+    .forgot-password {
+        position: absolute;
+        color: $system-colors-secondary;
+        z-index: 2;
+        bottom: 162px;
+        &:hover {
+            color: $system-colors-primary-2;
+        }
+        
+    }
     // gap: 24px;
 
         .formBtn-Wraps{
@@ -34,7 +45,7 @@
         .bottomText{
             display: flex;
             justify-content: center;
-            padding-top: 32px;
+            padding-top: 16px;
             column-gap: 2px;
             color: $system-colors-secondary;
         }
