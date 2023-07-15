@@ -33,7 +33,9 @@ export const SignIn: FC<ISignIn> = () => {
     return (
         <div className='signIn-wrap'>
             <Link to='/home'>
-                <div className='logoImg'><Logo/></div>
+                <div className='logoImg'>
+                    <Logo ></Logo>
+                </div>
             </Link>
             <FormSignIn>
 

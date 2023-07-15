@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import './FormSettings.scss';
 import { Input } from '../Input/Input';
+import { useAppContext } from '../../Contexts/AppContex';
 
 interface IFormSettings {
 }
@@ -28,57 +29,69 @@ export const FormSettings: FC<IFormSettings> = () => {
         setPasswordConfirm(newPassword);
     }
 
+
+    const { toggleTheme, isDarkTheme } = useAppContext();
+    const handleToggleTheme = () => {
+        toggleTheme();
+    }
     return (
-        <form>
-            <h2>Profile</h2>
+        <div className={isDarkTheme() ? 'dark' : 'light'}>
+            <h2>Color mode</h2>
             <div className='inputWrap'>
-                <Input
-                    title='Name'
-                    placeholder='Your Name'
-                    value={name}
-                    handleChange={handleChangeName}
-                    isDisabled={false}
-                    type='text'
-                />
-                <Input
-                    title='Email'
-                    placeholder='Your Email'
-                    value={email}
-                    handleChange={handleChangeEmail}
-                    isDisabled={false}
-                />
+                <button onClick={handleToggleTheme}>Theme</button>
             </div>
-            <h2>Password</h2>
-            <div className='inputWrap'>
-                <Input
-                    title='Password'
-                    placeholder='Your Password'
-                    value={password}
-                    handleChange={handleChangePassword}
-                    isDisabled={false}
-                    type={"password"}
-                />
-                <div className='inputWrap__input'>
+            <form>
+                <h2>Profile</h2>
+                <div className='inputWrap'>
                     <Input
-                        title='New Password'
-                        placeholder='New Password'
-                        value={passwordNew}
-                        handleChange={handleChangePasswordNew}
+                        title='Name'
+                        placeholder='Your Name'
+                        value={name}
+                        handleChange={handleChangeName}
                         isDisabled={false}
+                        type='text'
                     />
                     <Input
-                        title='Confirm Password'
-                        placeholder='Confirm Password'
-                        value={passwordConfirm}
-                        handleChange={handleChangePasswordConfirm}
+                        title='Email'
+                        placeholder='Your Email'
+                        value={email}
+                        handleChange={handleChangeEmail}
                         isDisabled={false}
                     />
                 </div>
-            </div>
-            <div className='formBtn-Wrap'>
-                <button>Cancel</button>
-                <button>Save</button>
-            </div>
-        </form>
+                <h2>Password</h2>
+                <div className='inputWrap'>
+                    <Input
+                        title='Password'
+                        placeholder='Your Password'
+                        value={password}
+                        handleChange={handleChangePassword}
+                        isDisabled={false}
+                        type={"password"}
+                    />
+                    <div className='inputWrap__input'>
+                        <Input
+                            title='New Password'
+                            placeholder='New Password'
+                            value={passwordNew}
+                            handleChange={handleChangePasswordNew}
+                            isDisabled={false}
+                        />
+                        <Input
+                            title='Confirm Password'
+                            placeholder='Confirm Password'
+                            value={passwordConfirm}
+                            handleChange={handleChangePasswordConfirm}
+                            isDisabled={false}
+                        />
+                    </div>
+                </div>
+
+                <div className='formBtn-Wrap'>
+                    <button>Cancel</button>
+                    <button>Save</button>
+                </div>
+            </form>
+        </div>
     )
 };

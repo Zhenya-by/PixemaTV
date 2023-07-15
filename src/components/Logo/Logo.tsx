@@ -4,5 +4,5 @@ import './Logo.scss';
 import { Logotype } from '../../assets/icons';
 
 export const Logo: FC = () => {
-    return <Logotype/>
+    return <Logotype className='logoImgs'/>
 };

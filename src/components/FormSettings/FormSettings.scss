@@ -1,34 +1,191 @@
 @import "/src/App.scss";
+.dark {
+    .userinfo__name {
+        color: $contextual-colors-white;
+    }
+    .logoImgs {
+        fill: white;
+    }
+    button{
+        background-color: $system-colors-primary;
+        color: $contextual-colors-white;
+    }
+    button:hover {
+        background-color: $background-colors-dark;
+        background-color: $system-colors-primary-2;
+        color: $contextual-colors-white;
+      }
+  .input {
+    background-color: $background-colors-graphite;
+    color: $contextual-colors-white;
+    &::placeholder {
+      color: $system-colors-secondary;
+    }
+  }
+  .search-input {
+    background: $background-colors-graphite;
+    &::placeholder {
+      color: $contextual-colors-white;
+    }
+  }
+  background-color: $background-colors-black;
+  .movie-details--p {
+    color: $contextual-colors-light;
+  }
+  .inputWraps,
+  .signIn-wrap {
+    background-color: $background-colors-dark;
+  }
+}
+.light {
+    .selectedUl{
+        background-color: $contextual-colors-white;
+        outline: 2px solid $system-colors-secondary;
+        outline-offset: -2px;
+        .selectedUl__li{
+            color: $background-colors-black;
+            &:hover:first-child {
+                border-radius: 20px 20px 0 0;
+                background-color: $system-colors-primary-2;
+              }
+              &:hover {
+                background-color: $system-colors-primary-2;
+              }
+              &:hover:last-child {
+                background-color: $system-colors-primary-2;
+                border-radius: 0px 0px 20px 20px;
+              }
+              cursor: pointer;
+              &:last-child {
+                border-bottom: none;
+              }
+        }
+    }
+    .btn-selected, .btn-selected__disable{
+        background-color: $contextual-colors-white;
+        outline-offset: -2px;
+        outline: 2px solid $system-colors-secondary;
+        color: $system-colors-primary;
+    }
+    .input-filters {
+        background-color: $contextual-colors-white;
+        outline-offset: -2px;
+        outline: 2px solid $system-colors-secondary;
+    }
+    .modal-content{
+        background-color: $contextual-colors-white;
+
+    }
+    .input-wrapperSignIn .input-SignIn .inputSignIn {
+        background-color: $contextual-colors-white;
+        outline-offset: -2px;
+        outline: 2px solid $system-colors-secondary;
+        color: $system-colors-primary;
+    }
+    .userinfo__name {
+        color: $background-colors-black;
+    }
+    .logoImgs {
+        fill: black;
+    }
+
+    button{
+        background-color: $system-colors-primary;
+        color: $contextual-colors-white;
+    }
+    button:hover {
+        background-color: $background-colors-dark;
+        background-color: $system-colors-primary-2;
+        color: $contextual-colors-white;
+      }
+  .input {
+    background-color: $contextual-colors-white;
+    color: $system-colors-primary;
+    outline-offset: -2px;
+    outline: 2px solid $system-colors-secondary;
+    &::placeholder {
+      color: $system-colors-secondary;
+    }
+  }
+  .search-input {
+    outline-offset: -2px;
+    outline: 2px solid $system-colors-secondary;
+    background: $contextual-colors-white;
+    &::placeholder {
+      color: $system-colors-secondary;
+    }
+  }
+  color: $background-colors-dark;
+  background-color: $contextual-colors-white;
+  .inputWrap {
+      color: $system-colors-secondary;
+      background-color: $contextual-colors-white;
+      outline-offset: -2px;
+      outline: 2px solid $system-colors-secondary;
+  }
+  h3,
+  h2,
+  h1 {
+    color: $background-colors-dark;
+  }
+
+  .movie-details--p {
+    color: $system-colors-secondary;
+  }
+  .inputWraps,
+  .signIn-wrap {
+    background-color: $contextual-colors-white;
+  }
+}
+
+
+
+
+
+
+
+h2 {
+
+    margin-top: 56px;
+    margin-bottom: 16px;
+  }
+  .inputWrap {
+    border-radius: 10px;
+    margin-bottom: 40px;
+    padding: 40px;
+    background-color: $background-colors-dark;
+    display: flex;
+    column-gap: 40px;
+  }
 
 form {
-    margin-top: 56px;
-    h2 {
-        margin-bottom: 16px;
+  margin-top: 56px;
+  h2 {
+    margin-bottom: 16px;
+  }
+  .inputWrap {
+    border-radius: 10px;
+    margin-bottom: 40px;
+    padding: 40px;
+    background-color: $background-colors-dark;
+    display: flex;
+    column-gap: 40px;
+    &__input {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      row-gap: 24px;
     }
-    .inputWrap {
-        border-radius: 10px;
-        margin-bottom: 40px;
-        padding: 40px;
-        background-color: $background-colors-dark;
-        display: flex;
-        column-gap: 40px;
-        &__input{
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            row-gap: 24px;
-        }
-    
+  }
+  .formBtn-Wrap {
+    display: flex;
+    column-gap: 40px;
+    justify-content: end;
+    button {
+      // float: right;
+      padding: 16px 108px;
+      display: flex;
+      column-gap: 40px;
     }
-    .formBtn-Wrap{
-        display: flex;
-        column-gap: 40px;
-        justify-content: end;
-        button{
-            // float: right;
-            padding: 16px 108px;
-            display: flex;
-            column-gap: 40px;
-        }
-    }
+  }
 }

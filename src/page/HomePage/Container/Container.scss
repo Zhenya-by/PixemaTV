@@ -1,9 +1,12 @@
 @import "/src/App.scss";
 .container{
   width: 100%;
-
-  margin-top: 40px;
+  // height: 100%;
+  // min-height: 1205px;
+  height: 100vh;
+  padding-top: 40px;
   display: flex;
   justify-content: center;
   column-gap: 40px;
+  
 }
