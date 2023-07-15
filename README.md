@@ -2,9 +2,9 @@
 <img>![image](https://github.com/Zhenya-by/pixematv/assets/100441082/4370f9c6-3bfa-4d73-9258-90cefbdd74d1)
 </img>
 # Description
-Hi, I present you my React application, Pixematv.
-It realizes: Search by page, add movies to favorites, there is a filter by year and movie title.
-Not realized: Registration, login, settings.
+Hello, I present to you my React app, Pixematv. 
+Implemented: Page search, adding movies to favorites, there is a filter by year and movie name, theme change (white, dark). 
+Not implemented: Registration, login, settings.
 
 🤔 How to start a project? Perform the following steps:
 <ul>
