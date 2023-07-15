@@ -29,15 +29,10 @@
     justify-content: center;
     flex-direction: column;
     h2 {
-      color: $contextual-colors-light;
       margin-top: 20px;
       display: flex;
       justify-content: center;
     }
-    // .favorite-no-movies{
-    //   &__wrap{
-    //   }
-    // }
   }
   .movie-card {
     position: relative;
@@ -91,7 +86,6 @@
       right: 10px;
       padding: 4px 14px;
       background-color: $system-colors-primary;
-      //   color: $contextual-colors-white;
       width: max-content;
       border-radius: 10px;
       cursor: pointer;
@@ -108,13 +102,6 @@
       flex-direction: column;
       flex-wrap: wrap;
 
-      &-p {
-        padding: 4px 14px;
-        background-color: $background-colors-graphite;
-        width: max-content;
-        border-radius: 10px;
-      }
-
       h3 {
         padding-top: 24px;
         padding-bottom: 4px;
@@ -127,7 +114,6 @@
       p {
         margin-top: 4px;
         font-size: 14px;
-        color: $contextual-colors-light;
       }
     }
   }
@@ -140,6 +126,9 @@
         display: block;
         transform: scale(1.06);
       }
+    }
+    h3{ 
+      color: $system-colors-primary;
     }
 
     &-rating {

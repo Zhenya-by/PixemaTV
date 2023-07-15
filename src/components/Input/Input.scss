@@ -1,3 +1,4 @@
+@import "/src/App.scss";
 .input-wrapper {
     position: relative;
     width: 100%;
@@ -11,32 +12,43 @@
     }
 
     .input {
-        width: 100%;
+        width: 95%;
         height: 56px;
-        padding: 0 20px;
-        border-radius: 2px;
-        border: 2px solid #fff;
-        outline: none;
+        padding: 0px 0px 0px 20px;
+        border-radius: 10px;
+        border: none ;
         font-size: 16px;
         font-weight: 400;
+        // background-color: $background-colors-graphite;
+        // color: $contextual-colors-white;
 
+        &::placeholder{
+            // padding: 0 20px;
+            // color: $system-colors-secondary;
+        }
         &::-webkit-inner-spin-button,
         &::-webkit-outer-spin-button {
             -webkit-appearance: none;
         }
 
         &:focus {
-            border-color: #dadada;
+            outline: -2px;
+            outline: 2px solid $system-colors-primary;
         }
 
         &:disabled {
-            color: #8D8E97;
-            background-color: #E8E8E8;
+            background-color: $system-colors-secondary;
             cursor: not-allowed;
+            &::placeholder{
+                color: $contextual-colors-light;
+            }
         }
 
         &.error {
-            border-color: #FD3419;
+            border-color: $contextual-colors-error;
+            &::placeholder{
+                color: $contextual-colors-light;
+            }
         }
     }
 
@@ -46,6 +58,6 @@
         font-size: 16px;
         line-height: 20px;
         font-weight: 400;
-        color: #FD3419;
+        color: $contextual-colors-error;
     }
 }

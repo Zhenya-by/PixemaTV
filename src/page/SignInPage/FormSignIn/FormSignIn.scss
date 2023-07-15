@@ -1,0 +1,56 @@
+@import "/src/App.scss";
+.h2-SignIn {
+    color: $contextual-colors-white;
+    margin-bottom: 40px;
+}
+.formSignIn{
+    width: 100%;
+    max-width: 500px;
+    margin-top: 24px;
+    .inputWraps{
+        // background-color: $background-colors-dark;
+        padding: 40px;
+        border-radius: 10px;
+        display: flex;
+    flex-direction: column;
+    position: relative;
+    .forgot-password {
+        position: absolute;
+        color: $system-colors-secondary;
+        z-index: 2;
+        bottom: 162px;
+        &:hover {
+            color: $system-colors-primary-2;
+        }
+        
+    }
+    // gap: 24px;
+
+        .formBtn-Wraps{
+            display: flex;
+            flex-direction: column;
+            // justify-content: center;
+            button{
+                background-color: $system-colors-primary;
+                color: $contextual-colors-white;
+                border-radius: 10px;
+                margin-top: 28px;
+                padding: 16px;
+                &:hover{
+                    background-color: $system-colors-primary-2;
+                }
+
+            }
+        }
+        .bottomText{
+            display: flex;
+            justify-content: center;
+            padding-top: 16px;
+            column-gap: 2px;
+            color: $system-colors-secondary;
+        }
+        .link-colors{
+            color: $system-colors-primary;
+        }
+    }
+}

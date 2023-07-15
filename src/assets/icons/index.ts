@@ -1,4 +1,5 @@
 export { ReactComponent as Logotype } from '../icons/pixema.svg';
+export { ReactComponent as LogotypeW } from '../icons/pixema-white.svg';
 export { ReactComponent as Home } from '../icons/Home.svg';
 export { ReactComponent as Trends } from '../icons/Trends.svg';
 export { ReactComponent as Favorites } from '../icons/Favorites.svg';
