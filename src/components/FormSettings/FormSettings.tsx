@@ -36,9 +36,9 @@ export const FormSettings: FC<IFormSettings> = () => {
     }
     return (
         <div className={isDarkTheme() ? 'dark' : 'light'}>
-            <h2>Color mode</h2>
+            <h2 className='theme-h2'>Color mode</h2>
             <div className='inputWrap'>
-                <button onClick={handleToggleTheme}>Theme</button>
+                <button  onClick={handleToggleTheme}>Theme</button>
             </div>
             <form>
                 <h2>Profile</h2>

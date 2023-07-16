@@ -1,5 +1,8 @@
 @import "/src/App.scss";
 .dark {
+  .labelSignIn{
+    color: $contextual-colors-white;
+  }
     .userinfo__name {
         color: $contextual-colors-white;
     }
@@ -38,6 +41,14 @@
   }
 }
 .light {
+  .labelSignIn{
+    color: $background-colors-black;
+  }
+  .movie-container--right{
+    p {
+      color: $background-colors-black;
+    }
+  }
     .selectedUl{
         background-color: $contextual-colors-white;
         outline: 2px solid $system-colors-secondary;
@@ -144,7 +155,7 @@
 
 
 
-h2 {
+.theme-h2 {
 
     margin-top: 56px;
     margin-bottom: 16px;
