@@ -26,6 +26,10 @@
     }
     .active {
       background-color: $contextual-colors-error;
+      transition: .3s all;
+      &:hover{
+        background-color: #ff7476;
+      }
       color: $contextual-colors-white;
     }
 

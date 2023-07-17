@@ -12,14 +12,17 @@ body {
   overflow-x: hidden;
 }
 body,
-.light {
+.light  {
   background-color: $contextual-colors-white;
+  height: 100vh;
+  // background-color: wheat;
   overflow-x: hidden;
 }
 body,
 .dark {
   background-color: $background-colors-black;
   overflow-x: hidden;
+  height: 100vh;
 }
 
 body,
@@ -27,26 +30,20 @@ button {
   font-family: "Exo 2", sans-serif;
   font-size: 16px;
   line-height: 24px;
-
-
-
-
-  
 }
-button{
+button {
   border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
+  padding: 13px 13px;
+  border-radius: 10px;
   transition: 0.3s;
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 a {
   color: inherit;
   text-decoration: none;
 }
-
-
-
 input {
   font-family: "Exo 2", sans-serif;
   font-size: 16px;
@@ -65,5 +62,4 @@ input::placeholder {
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
-  
 }

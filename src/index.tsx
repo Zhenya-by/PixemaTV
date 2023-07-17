@@ -6,17 +6,19 @@ import { BrowserRouter } from 'react-router-dom';
 import { App } from './App';
 import './index.scss';
 import { AppProvider } from './Contexts/AppContex';
+import './firebase';
+import 'components/media.css'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <Provider store={store}>
+  <BrowserRouter>
     <AppProvider>
-      <BrowserRouter>
+      <Provider store={store}>
         <App />
-      </BrowserRouter>
+      </Provider>
     </AppProvider>
-  </Provider>
+  </BrowserRouter>
 );
 

@@ -1,0 +1,189 @@
+@media (max-width: 2314px) {
+    .movie-card--favorite {
+        display: flex;
+        justify-content: center;
+    }
+  .menu {
+    display: none;
+  }
+  .logoImgsMain {
+    display: none;
+  }
+}
+@media (max-width: 1440px) {
+  main {
+    padding: 0 128px;
+  }
+}
+@media (max-width: 1280px) {
+  main {
+    width: 928px;
+    padding: 0px;
+  }
+  .menu {
+    display: block;
+  }
+  .userinfo {
+    display: none;
+  }
+  header {
+    display: none;
+  }
+  .logoImgsMain {
+    display: block;
+    min-width: 162px;
+    height: 42px;
+  }
+  .card-container .movie-card {
+    max-width: 208px;
+  }
+  .card-container {
+    gap: 32px;
+  }
+  .img-poster {
+    height: 279px;
+  }
+  .SearchMovies .list .list-search .img-poster img,
+  .SearchMovies .list .list-search .img-poster {
+    max-width: 208px;
+  }
+  .SearchMovies .list .list-search {
+    max-width: 208px;
+  }
+
+  .SearchMovies .list {
+    column-gap: 32px;
+  }
+  .list-search {
+    width: 208px;
+  }
+  .card-wrap {
+    gap: 32px;
+    /* width: 208px; */
+  }
+  .card-wrap .movie-card .img-poster img {
+    max-width: 208px;
+  }
+  .img-poster {
+    max-width: 208px;
+  }
+  .card-wrap .movie-card {
+    max-width: 208px;
+  }
+  /* .container{
+        width: 928px;
+    } */
+}
+@media (max-width: 1024px) {
+  main {
+    padding: 0 20px;
+  }
+
+}
+@media (max-width: 768px) {
+  main {
+    padding: 0 40px;
+  }
+  .light .inputWrap {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .dark .inputWrap {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 320px) {
+  main {
+    padding: 0 24px;
+  }
+  .SearchMovies--search-container{
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 32px;
+  }
+  .SearchMovies--search-container .search-wrap {
+    position: relative;
+    width: 100%;
+
+    /* flex-flow: column; */
+    display: flex;
+    flex-flow: row;
+    order: 1;
+  }
+  .card-container .movie-card{ 
+    min-width: 272px;
+  }
+  .img-poster{
+    min-width: 272px;
+    min-height: 365px;
+  }
+  .card-wrap .movie-card .img-poster img{
+    min-width: 272px;
+    height: 396px;
+  }
+  .card-container .movie-card .img-poster,
+  .card-container .movie-card .img-poster img{
+    height: 396px;
+  }
+  /* .card-wrap .movie-card .img-poster img{
+    min-height: 365px;
+  } */
+  .card-wrap .movie-card {
+    min-width: 272px;
+  }
+  .menu__content {
+
+    height: 74vh;
+    width: 212px;
+  }
+  .modal-content{
+    width: 320px;
+  }
+  .modal-content .input-filters{
+    margin-right: 0;
+    width: fit-content;
+  }
+  .wrap-selected .btn-selected{
+    width: -webkit-fill-available;
+  }
+  .SearchMovies--search-container .search-wrap {
+      display: flex;
+      order: 1;
+    }
+    .SearchMovies--search-container {
+      flex-wrap: wrap;
+  }
+  .movie-container{
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .input-wrapper .input{
+    /* width: 100%; */
+  }
+  .inputWrap {
+    width: auto;
+    max-width: 200px;
+  }
+  form .formBtn-Wrap{
+    justify-content: space-evenly;
+    width: auto;
+
+  }
+  form .formBtn-Wrap button{
+    padding: 16px 20px;
+  }
+  form .inputWrap{
+    flex-wrap: wrap;
+  }
+}
+/* @media (max-width: 992px) and (min-width: 1199px) {
+}
+@media (min-width: 768px) and (max-width: 991px) {
+}
+@media (min-width: 480px) and (max-width: 767px) {
+}
+@media (min-width: 320px) and (max-width: 479px) {
+}
+@media (max-width: 320px) {
+} */

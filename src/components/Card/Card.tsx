@@ -10,7 +10,7 @@ import { toggleFavoriteMovie } from "../../Store/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../Store/store";
 
-interface CardProps {}
+interface CardProps { }
 
 export const Card: React.FC<CardProps> = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,20 +35,15 @@ export const Card: React.FC<CardProps> = () => {
           "tt0133093",
           "tt0109830",
           "tt0110912",
-          "tt1375666",
           "tt0068646",
           "tt0076759",
           "tt0102926",
           "tt0090605",
           "tt0080684",
-          "tt0076759",
           "tt0082971",
           "tt0073486",
-          "tt0133093",
-          "tt0109830",
           "tt0114369",
           "tt0120815",
-          "tt0068646",
           "tt0088763",
           "tt0050083",
           "tt0363163",
@@ -56,6 +51,11 @@ export const Card: React.FC<CardProps> = () => {
           "tt0081505",
           "tt0075314",
           "tt0120586",
+          "tt0093058",
+          "tt0105236",
+          "tt0112573",
+          "tt0078748",
+          "tt0109831",
         ];
 
         const moviePromises = movieIds

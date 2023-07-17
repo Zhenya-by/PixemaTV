@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { Home } from '../page/HomePage/Home/Home';
 import { Favorites } from '../page/FavoritesPage/Favorites/Favorites';
 import { Trends } from '../page/TrendsPage/Trends/Trends';
@@ -23,7 +23,7 @@ export const Router: React.FC = () => {
       <Route path='/favorites' element={<Favorites />} />
       <Route path='/settings' element={<Settings />} />
       <Route path='/search/movies/:id' element={<MovieFull />} />
-
+{/* <Route path="/login" element={<FormSignIn />} /> */}
       <Route path='/search-results' element={<SearchFilters />} /> {/* Добавлен новый маршрут для результатов поиска */}
       <Route path='/movies/:id' element={<MovieFull />} />
       <Route path='/sign-in' element={ <SignIn />} />
