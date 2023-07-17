@@ -8,6 +8,9 @@ import { Modal } from "../Modal/Modal";
 import { Filters } from "../../assets/icons";
 import { UserInfo } from "../UserInfo/UserInfo";
 import { Input } from "../Input/Input";
+import { MenuCard } from "components/MenuCard/MenuCard";
+import { Logo } from "components/Logo/Logo";
+import { LogoMain } from "components/Logo/LogoMain";
 
 interface Movie {
   Title: string;
@@ -104,6 +107,7 @@ const SearchMovies: React.FC = () => {
             isMovieClicked ? "hide" : ""
           }`}
         >
+          <LogoMain/>
           <Modal isOpen={isModalOpen} onClose={closeModal} />
           <div className="search-wrap">
           <input className="search-input"
@@ -117,7 +121,7 @@ const SearchMovies: React.FC = () => {
           </button>
           </div>
           <UserInfo username={"Evgeni Minko"}/>
-
+          <MenuCard/>
           
         </div>
 

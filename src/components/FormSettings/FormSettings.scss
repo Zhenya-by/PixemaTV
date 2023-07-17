@@ -1,5 +1,24 @@
 @import "/src/App.scss";
 .dark {
+  .menu__items{
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+  }
+  .menu__item a{
+    // &:hover{
+    //   color: $system-colors-primary-2;
+    //   background: $system-colors-primary-2;
+    // }
+    display: flex;
+    column-gap: 20px;
+    margin-bottom: 0px;
+    row-gap: 40px;
+  }
+  .menu__content{
+    background: $background-colors-black;
+    padding: 20px 30px;
+  }
   .labelSignIn{
     color: $contextual-colors-white;
   }
@@ -9,6 +28,9 @@
     .logoImgs {
         fill: white;
     }
+    .logoImgsMain {
+      fill: white;
+  }
     button{
         background-color: $system-colors-primary;
         color: $contextual-colors-white;
@@ -40,7 +62,23 @@
     background-color: $background-colors-dark;
   }
 }
+
 .light {
+  .menu__items{
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+  }
+  .menu__item a{
+    display: flex;
+    column-gap: 20px;
+    margin-bottom: 0px;
+    row-gap: 40px;
+  }
+  .menu__content{
+    background: $contextual-colors-white;
+    padding: 20px 30px;
+  }
   .labelSignIn{
     color: $background-colors-black;
   }
@@ -97,6 +135,9 @@
         color: $background-colors-black;
     }
     .logoImgs {
+        fill: black;
+    }
+    .logoImgsMain {
         fill: black;
     }
 
