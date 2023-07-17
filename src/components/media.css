@@ -176,6 +176,16 @@
   form .inputWrap{
     flex-wrap: wrap;
   }
+
+  .img-poster{
+    min-width: 272px;
+    height: 396px;
+  }
+  .SearchMovies .list .list-search .img-poster img,
+   .SearchMovies .list .list-search .img-poster{
+    min-width: 272px;
+    height: 396px;
+   }
 }
 /* @media (max-width: 992px) and (min-width: 1199px) {
 }
