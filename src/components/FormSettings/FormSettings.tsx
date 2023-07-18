@@ -89,9 +89,9 @@ export const FormSettings: FC<IFormSettings> = () => {
                 </div>
 
                 <div className='formBtn-Wrap'>
+                    <LogoutButton/>
                     <button>Cancel</button>
                     <button>Save</button>
-                    <LogoutButton/>
                 </div>
             </form>
         </div>

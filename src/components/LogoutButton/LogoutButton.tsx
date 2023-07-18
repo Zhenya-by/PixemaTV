@@ -4,6 +4,7 @@ import { removeUser } from '../../Store/userSlice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { getAuth, signOut } from 'firebase/auth';
 import { Link } from 'react-router-dom';
+import './LogoutButton.scss'
 
 const LogoutButton = () => {
   const dispatch = useAppDispatch();
@@ -24,10 +25,10 @@ const LogoutButton = () => {
   return (
     <>
       {isAuth ? (
-        <button onClick={handleLogout}>Logout</button>
+        <button className='btn-log' onClick={handleLogout}>Logout</button>
       ) : (
         <Link to="/sign-in">
-        <button>Sign In</button>
+        <button className='btn-log'>Sign In</button>
       </Link>
       )}
     </>
