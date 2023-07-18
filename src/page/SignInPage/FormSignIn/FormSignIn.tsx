@@ -96,7 +96,7 @@ export const FormSignIn: FC<IFormSignIn> = () => {
                 <div className="formBtn-Wraps">
                     <button
                         type="submit"
-                        onClick={() => handleLogin(email, password)}
+                        onSubmit={() => handleLogin(email, password)}
                     >
                         Sign in
                     </button>

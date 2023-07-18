@@ -2,17 +2,20 @@ import { FC, useState } from 'react';
 import './FormSettings.scss';
 import { Input } from '../Input/Input';
 import { useAppContext } from '../../Contexts/AppContex';
-import { useAppSelector } from 'hooks/redux-hooks';
-import { setUser } from 'Store/userSlice';
+import { useAppDispatch, useAppSelector } from 'hooks/redux-hooks';
+import { removeUser, setUser } from 'Store/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 interface IFormSettings {}
 
 export const FormSettings: FC<IFormSettings> = () => {
+    const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordNew, setNewPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const dispatch = useAppDispatch();
 
   const user = useAppSelector((state) => state.user);
 
@@ -38,6 +41,8 @@ export const FormSettings: FC<IFormSettings> = () => {
   };
 
   const handleLogout = () => {
+    navigate('/sign-up');
+    dispatch(removeUser());
     // Реализуйте логику выхода пользователя
   };
 
@@ -98,7 +103,7 @@ export const FormSettings: FC<IFormSettings> = () => {
           {user.email ? (
             <button onClick={handleLogout}>Logout</button>
           ) : (
-            <button>Login</button>
+            <button onClick={handleLogout}>Login</button>
           )}
           <button>Save</button>
         </div>
