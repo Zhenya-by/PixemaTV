@@ -4,8 +4,8 @@ import { Input } from '../SignUp/Input/Input';
 import { Link } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { setUser } from '../../../Store/userSlice';
-import { useAppDispatch } from '../../../hooks/redux-hooks';
+import { setUser, setUsername } from '../../../Store/userSlice';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -22,6 +22,7 @@ const auth = getAuth(); // Initialize auth instance
 interface IFormSignUp {}
 
 export const FormSignUp: FC<IFormSignUp> = () => {
+  const username = useAppSelector((state) => state.user.email);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -59,9 +60,12 @@ export const FormSignUp: FC<IFormSignUp> = () => {
           setUser({
             email: user.email,
             id: user.uid,
-            token: user.refreshToken
+            token: user.refreshToken,
+            username: null
           })
-        );
+          
+          );
+          dispatch(setUsername(name)); // Добавьте эту строку
         setRegistrationSuccess(true); // Set registration success to true
       })
       .catch(console.error);

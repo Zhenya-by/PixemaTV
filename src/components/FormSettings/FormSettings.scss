@@ -1,5 +1,11 @@
 @import "/src/App.scss";
 .dark {
+  .btn-log{
+    background: $contextual-colors-error;
+    &:hover{
+      background: $tertiary-colors-orange;
+    }
+}
   .menu__items{
     display: flex;
     flex-direction: column;
@@ -64,6 +70,12 @@
 }
 
 .light {
+  .btn-log{
+    background: $contextual-colors-error;
+    &:hover{
+      background: $tertiary-colors-orange;
+    }
+}
   .menu__items{
     display: flex;
     flex-direction: column;

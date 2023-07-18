@@ -36,6 +36,8 @@
                 border-radius: 10px;
                 margin-top: 28px;
                 padding: 16px;
+                display: flex;
+                justify-content: center;
                 &:hover{
                     background-color: $system-colors-primary-2;
                 }
