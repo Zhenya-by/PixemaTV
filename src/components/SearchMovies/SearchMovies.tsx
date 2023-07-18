@@ -12,6 +12,8 @@ import { MenuCard } from "components/MenuCard/MenuCard";
 import { Logo } from "components/Logo/Logo";
 import { LogoMain } from "components/Logo/LogoMain";
 import { useAppSelector } from 'hooks/redux-hooks';
+import { useSelector } from 'react-redux';
+import { RootState } from 'Store/store';
 interface Movie {
   Title: string;
   Year: string;
@@ -33,6 +35,8 @@ const SearchMovies: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [isMovieClicked, setIsMovieClicked] = useState(false);
+
+  
 
   const handleSearch = async (query: string, page: number) => {
     try {

@@ -1,62 +1,74 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import './FormSettings.scss';
 import { Input } from '../Input/Input';
 import { useAppContext } from '../../Contexts/AppContex';
 import LogoutButton from 'components/LogoutButton/LogoutButton';
-
-interface IFormSettings {
-}
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { useSelector } from 'react-redux';
+interface IFormSettings { }
 
 export const FormSettings: FC<IFormSettings> = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordNew, setNewPassword] = useState('');
-    const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [username, setUsername] = useState('');
+    const [userEmail, setUserEmail] = useState('');
 
-    const handleChangeName = (newName: string) => {
-        setName(newName);
-    }
-    const handleChangeEmail = (newEmail: string) => {
-        setEmail(newEmail);
-    }
-    const handleChangePassword = (newPassword: string) => {
-        setPassword(newPassword);
-    }
-    const handleChangePasswordNew = (newPassword: string) => {
-        setNewPassword(newPassword);
-    }
-    const handleChangePasswordConfirm = (newPassword: string) => {
-        setPasswordConfirm(newPassword);
-    }
+    const handleChangeUsername = (newUsername: string) => {
+        setUsername(newUsername);
+    };
 
+    const handleChangeUserEmail = (newUserEmail: string) => {
+        setUserEmail(newUserEmail);
+    };
 
     const { toggleTheme, isDarkTheme } = useAppContext();
     const handleToggleTheme = () => {
         toggleTheme();
-    }
+    };
+
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
+          if (user) {
+            // Если пользователь аутентифицирован, получите его данные
+            const userData = {
+              username: user.displayName || '',
+              email: user.email || '',
+            };
+      
+            // Выводим данные пользователя в консоль
+            console.log('User Data:', userData);
+      
+            // Установите данные пользователя в соответствующие состояния
+            setUsername(userData.username);
+            setUserEmail(userData.email);
+          }
+        });
+      
+        return () => unsubscribe();
+      }, []);
+
     return (
         <div className={isDarkTheme() ? 'dark' : 'light'}>
             <h2 className='theme-h2'>Color mode</h2>
             <div className='inputWrap'>
-                <button  onClick={handleToggleTheme}>Theme</button>
+                <button onClick={handleToggleTheme}>Theme</button>
             </div>
             <form>
                 <h2>Profile</h2>
                 <div className='inputWrap'>
+
                     <Input
-                        title='Name'
-                        placeholder='Your Name'
-                        value={name}
-                        handleChange={handleChangeName}
+                        title='Username'
+                        placeholder='Your Username'
+                        value={username}
+                        handleChange={handleChangeUsername}
                         isDisabled={false}
                         type='text'
                     />
                     <Input
-                        title='Email'
-                        placeholder='Your Email'
-                        value={email}
-                        handleChange={handleChangeEmail}
+                        title='User Email'
+                        placeholder='Your User Email'
+                        value={userEmail}
+                        handleChange={handleChangeUserEmail}
                         isDisabled={false}
                     />
                 </div>
@@ -65,35 +77,35 @@ export const FormSettings: FC<IFormSettings> = () => {
                     <Input
                         title='Password'
                         placeholder='Your Password'
-                        value={password}
-                        handleChange={handleChangePassword}
+                        value=''
+                        handleChange={() => { }}
                         isDisabled={false}
-                        type={"password"}
+                        type='password'
                     />
                     <div className='inputWrap__input'>
                         <Input
                             title='New Password'
                             placeholder='New Password'
-                            value={passwordNew}
-                            handleChange={handleChangePasswordNew}
+                            value=''
+                            handleChange={() => { }}
                             isDisabled={false}
                         />
                         <Input
                             title='Confirm Password'
                             placeholder='Confirm Password'
-                            value={passwordConfirm}
-                            handleChange={handleChangePasswordConfirm}
+                            value=''
+                            handleChange={() => { }}
                             isDisabled={false}
                         />
                     </div>
                 </div>
 
                 <div className='formBtn-Wrap'>
-                    <LogoutButton/>
+                    <LogoutButton />
                     <button>Cancel</button>
                     <button>Save</button>
                 </div>
             </form>
         </div>
-    )
+    );
 };

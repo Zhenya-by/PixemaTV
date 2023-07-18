@@ -3,7 +3,7 @@ import './FormSignUp.scss';
 import { Input } from '../SignUp/Input/Input';
 import { Link } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { setUser, setUsername } from '../../../Store/userSlice';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 
@@ -22,15 +22,15 @@ const auth = getAuth(); // Initialize auth instance
 interface IFormSignUp {}
 
 export const FormSignUp: FC<IFormSignUp> = () => {
-  const username = useAppSelector((state) => state.user.email);
-  const [name, setName] = useState('');
+  // const username = useAppSelector((state) => state.user.email);
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState(false); // State variable for registration success
 
   const handleChangeName = (newName: string) => {
-    setName(newName);
+    setUsername(newName);
   };
 
   const handleChangeEmail = (newEmail: string) => {
@@ -54,20 +54,35 @@ export const FormSignUp: FC<IFormSignUp> = () => {
     passwordConfirm: string
   ) => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        console.log(user);
-        dispatch(
-          setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.refreshToken,
-            username: null
-          })
-          
-          );
-          dispatch(setUsername(name)); // Добавьте эту строку
-        setRegistrationSuccess(true); // Set registration success to true
+    .then(({ user }) => {
+      console.log(user);
+      dispatch(
+        setUser({
+          email: user.email,
+          id: user.uid,
+          token: user.refreshToken,
+          username: name,
+        })
+      );
+
+      // Установите имя пользователя с помощью updateProfile
+      updateProfile(user, {
+        displayName: name,
       })
+        .then(() => {
+          console.log('Username set:', name);
+          setEmail('');
+          setPassword('');
+          // setError(null);
+
+          localStorage.setItem('name', name);
+          localStorage.setItem('email', email);
+          localStorage.setItem('password', password);
+        })
+        .catch((error) => {
+          console.error('Error setting username:', error);
+        });
+    })
       .catch(console.error);
   };
 
@@ -76,7 +91,7 @@ export const FormSignUp: FC<IFormSignUp> = () => {
       className='formSignIn'
       onSubmit={(e) => {
         e.preventDefault();
-        handleRegister(name, email, password, passwordConfirm);
+        handleRegister(username, email, password, passwordConfirm);
       }}
     >
       <div className='inputWraps'>
@@ -85,7 +100,7 @@ export const FormSignUp: FC<IFormSignUp> = () => {
         <Input
           title='Name'
           placeholder='Your Name'
-          value={name}
+          value={username}
           handleChange={handleChangeName}
           isDisabled={false}
           type='text'
@@ -129,3 +144,5 @@ export const FormSignUp: FC<IFormSignUp> = () => {
     </form>
   );
 };
+
+
