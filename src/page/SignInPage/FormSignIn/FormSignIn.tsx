@@ -57,6 +57,7 @@ export const FormSignIn: FC<IFormSignIn> = () => {
             email: user.email,
             id: user.uid,
             token: user.refreshToken,
+            username: null
           })
         );
         setEmail("");

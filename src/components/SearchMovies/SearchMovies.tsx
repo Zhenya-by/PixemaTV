@@ -11,7 +11,7 @@ import { Input } from "../Input/Input";
 import { MenuCard } from "components/MenuCard/MenuCard";
 import { Logo } from "components/Logo/Logo";
 import { LogoMain } from "components/Logo/LogoMain";
-
+import { useAppSelector } from 'hooks/redux-hooks';
 interface Movie {
   Title: string;
   Year: string;
@@ -27,6 +27,7 @@ interface SearchResult {
 }
 
 const SearchMovies: React.FC = () => {
+  const username = useAppSelector((state) => state.user.email);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -122,7 +123,7 @@ const SearchMovies: React.FC = () => {
             <Filters />
           </button>
           </div>
-          <UserInfo username={"Evgeni Minko"}/>
+          {username && <UserInfo username={username} />}
           <MenuCard/>
           
         </div>
