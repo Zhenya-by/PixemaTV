@@ -57,12 +57,13 @@ export const FormSignUp: FC<IFormSignUp> = () => {
         console.log(user);
         dispatch(
           setUser({
+            name, // Сохранение имени пользователя
             email: user.email,
             id: user.uid,
-            token: user.refreshToken
+            token: user.refreshToken,
           })
         );
-        setRegistrationSuccess(true); // Set registration success to true
+        setRegistrationSuccess(true);
       })
       .catch(console.error);
   };
