@@ -107,7 +107,9 @@ const SearchMovies: React.FC = () => {
             isMovieClicked ? "hide" : ""
           }`}
         >
-          <LogoMain/>
+          <Link to='/home'>
+            <LogoMain/>
+          </Link>
           <Modal isOpen={isModalOpen} onClose={closeModal} />
           <div className="search-wrap">
           <input className="search-input"

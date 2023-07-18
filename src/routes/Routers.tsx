@@ -12,6 +12,7 @@ import { SignUp } from '../page/SignInPage/SignUp/SignUp';
 import { FormSignUp } from '../page/SignInPage/FormSignUp/FormSignUp';
 import { FormSignIn } from '../page/SignInPage/FormSignIn/FormSignIn';
 import { ResetPassword } from '../page/SignInPage/ResetPassword/ResetPassword';
+import SearchMovies from 'components/SearchMovies/SearchMovies';
 // import './Routes.scss';
 
 export const Router: React.FC = () => {
@@ -19,6 +20,7 @@ export const Router: React.FC = () => {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/home' element={<Home />} />
+      <Route path='/home' element={<SearchMovies />} />
       <Route path='/trends' element={<Trends />} />
       <Route path='/favorites' element={<Favorites />} />
       <Route path='/settings' element={<Settings />} />
