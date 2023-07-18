@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import "./FormSignIn.scss";
 import { Input } from "../SignIn/Input/Input";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -28,23 +28,26 @@ const auth = getAuth(); // Инициализация экземпляра ау�
 
 export const FormSignIn: FC<IFormSignIn> = () => {
   const dispatch = useAppDispatch();
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isAuth, setIsAuth] = useState(false);
   const [error, setError] = useState<string | null>(null); // Состояние для сообщения об ошибке
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsAuth(true);
+        navigate("/home"); // Перенаправить на страницу "/home", если пользователь уже аутентифицирован
       } else {
         setIsAuth(false);
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [auth, navigate]);
 
   const handleLogin = (name: string, email: string, password: string) => {
     signInWithEmailAndPassword(auth, email, password)
@@ -64,17 +67,19 @@ export const FormSignIn: FC<IFormSignIn> = () => {
           displayName: name,
         })
           .then(() => {
-            console.log('Username set:', name);
-            setEmail('');
-            setPassword('');
+            console.log("Username set:", name);
+            setEmail("");
+            setPassword("");
             setError(null);
 
-            localStorage.setItem('name', name);
-            localStorage.setItem('email', email);
-            localStorage.setItem('password', password);
+            localStorage.setItem("name", name);
+            localStorage.setItem("email", email);
+            localStorage.setItem("password", password);
+
+            navigate("/home", { state: { message: "Sign in success" } });
           })
           .catch((error) => {
-            console.error('Error setting username:', error);
+            console.error("Error setting username:", error);
           });
       })
       .catch((error) => {
@@ -92,11 +97,13 @@ export const FormSignIn: FC<IFormSignIn> = () => {
 
   const handleChangeUsername = (newUsername: string) => {
     setUsername(newUsername);
-  if (isAuth) {
-    return <Navigate to="/home" />;
-  }
-  
   };
+
+  if (isAuth) {
+    navigate("/home"); // Перенаправить на страницу "/home", если пользователь уже аутентифицирован
+    return null; // Вернуть пустой компонент, так как перенаправление уже произошло
+  }
+
   return (
     <form
       className="formSignIn"
