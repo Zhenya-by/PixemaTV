@@ -34,6 +34,8 @@ const SearchMovies: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isMovieClicked, setIsMovieClicked] = useState(false);
 
+  
+
   const handleSearch = async (query: string, page: number) => {
     try {
       const modifiedSearchQuery = query.replace(/\s+/g, "*") + "*";
