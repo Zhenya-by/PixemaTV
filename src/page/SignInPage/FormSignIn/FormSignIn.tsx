@@ -62,6 +62,10 @@ export const FormSignIn: FC<IFormSignIn> = () => {
         setEmail("");
         setPassword("");
         setError(null); // Сброс сообщения об ошибке при успешном входе
+  
+        // Save email and password to localStorage
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
       })
       .catch((error) => {
         setError(error.message); // Установка сообщения об ошибке

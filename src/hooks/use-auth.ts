@@ -1,12 +1,17 @@
-import { useAppSelector } from './redux-hooks';
+import { useState, useEffect } from 'react';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 
-export function useAuth() {
-    const {email, token, id} = useAppSelector(state => state.user);
+export const useAuth = () => {
+  const auth = getAuth();
+  const [isAuth, setIsAuth] = useState(false);
 
-    return {
-        isAuth: !!email,
-        email,
-        token,
-        id,
-    };
-}
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
+      setIsAuth(!!user); 
+    });
+
+    return () => unsubscribe(); 
+  }, [auth]);
+
+  return { isAuth };
+};

@@ -92,6 +92,17 @@
     display: flex;
     flex-wrap: wrap;
   }
+  form .formBtn-Wrap{
+    /* display: flex; */
+    column-gap: 40px;
+    justify-content: end;
+
+  }
+  form .formBtn-Wrap button{
+    padding: 16px 34px;
+    /* display: flex; */
+    column-gap: 40px;
+  }
 }
 @media (max-width: 320px) {
   main {
@@ -165,13 +176,17 @@
     width: auto;
     max-width: 200px;
   }
-  form .formBtn-Wrap{
-    justify-content: space-evenly;
-    width: auto;
+  form .formBtn-Wrap, .light .btn-log{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
 
   }
   form .formBtn-Wrap button{
-    padding: 16px 20px;
+    padding: 16px 0px;
+    display: flex;
+    justify-content: center;
   }
   form .inputWrap{
     flex-wrap: wrap;
