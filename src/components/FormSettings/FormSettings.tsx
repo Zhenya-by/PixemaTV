@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import './FormSettings.scss';
 import { Input } from '../Input/Input';
 import { useAppContext } from '../../Contexts/AppContex';
+import LogoutButton from 'components/LogoutButton/LogoutButton';
 
 interface IFormSettings {
 }
@@ -90,6 +91,7 @@ export const FormSettings: FC<IFormSettings> = () => {
                 <div className='formBtn-Wrap'>
                     <button>Cancel</button>
                     <button>Save</button>
+                    <LogoutButton/>
                 </div>
             </form>
         </div>
