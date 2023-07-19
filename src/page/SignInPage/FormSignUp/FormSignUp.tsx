@@ -3,7 +3,7 @@ import "./FormSignUp.scss";
 import { Input } from "../SignUp/Input/Input";
 import { Link } from "react-router-dom";
 import { initializeApp } from "firebase/app";
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller } from "react-hook-form";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -11,7 +11,7 @@ import {
 } from "firebase/auth";
 import { setUser } from "../../../Store/userSlice";
 import { useAppDispatch } from "../../../hooks/redux-hooks";
-import { SubmitHandler } from 'react-hook-form';
+import { SubmitHandler } from "react-hook-form";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -25,7 +25,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(); // Initialize auth instance
 
-interface IFormSignUp { }
+interface IFormSignUp {}
 
 export const FormSignUp: FC<IFormSignUp> = () => {
   // const username = useAppSelector((state) => state.user.email);
@@ -37,10 +37,15 @@ export const FormSignUp: FC<IFormSignUp> = () => {
     control,
     formState: { errors },
     watch,
-    setValue
-  } = useForm<{ name: string; email: string; password: string; passwordConfirm: string }>();
+    setValue,
+  } = useForm<{
+    name: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+  }>();
 
-  const watchPassword = watch('password');
+  const watchPassword = watch("password");
 
   const handleRegister = async (
     name: string,
@@ -49,7 +54,11 @@ export const FormSignUp: FC<IFormSignUp> = () => {
     passwordConfirm: string
   ) => {
     try {
-      const { user } = await createUserWithEmailAndPassword(auth, email, password);
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       console.log(user);
       dispatch(
         setUser({
@@ -82,7 +91,12 @@ export const FormSignUp: FC<IFormSignUp> = () => {
 
   const [passwordMatchError, setPasswordMatchError] = useState(false);
 
-  const onSubmit: SubmitHandler<{ name: string; email: string; password: string; passwordConfirm: string }> = (data) => {
+  const onSubmit: SubmitHandler<{
+    name: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+  }> = (data) => {
     const { name, email, password, passwordConfirm } = data; // Destructure form data
 
     if (password === passwordConfirm) {
@@ -112,7 +126,14 @@ export const FormSignUp: FC<IFormSignUp> = () => {
             control={control}
             defaultValue=""
             rules={{ required: true, minLength: 3 }}
-            render={({ field }) => <input className="custom-input" placeholder="Your name" {...field} type="text" />}
+            render={({ field }) => (
+              <input
+                className="custom-input"
+                placeholder="Your name"
+                {...field}
+                type="text"
+              />
+            )}
           />
           {errors.name && <p>Name должен быть минимум 3 символа.</p>}
         </div>
@@ -124,39 +145,70 @@ export const FormSignUp: FC<IFormSignUp> = () => {
             control={control}
             defaultValue=""
             rules={{ required: true }}
-            render={({ field }) => <input className="custom-input" placeholder="Your email" {...field} type="email" />}
+            render={({ field }) => (
+              <input
+                className="custom-input"
+                placeholder="Your email"
+                {...field}
+                type="email"
+              />
+            )}
           />
-           {errors.email ? <p>Email обязателен к заполнению.</p> : <p></p>}
+          {errors.email ? <p>Email обязателен к заполнению.</p> : <p></p>}
         </div>
 
         <div>
-  <label htmlFor="password">Password:</label>
-  <Controller
-    name="password"
-    control={control}
-    defaultValue=""
-    rules={{ required: true, minLength: 6 }} // Adding the minLength validation rule
-    render={({ field }) => <input className="custom-input" placeholder="Your password" {...field} type="password" />}
-  />
-  {errors.password && <p>Пароль должен совпадать.</p>}
-  {errors.password?.type === "minLength" && <p>Пароль не менее 6 символов.</p>}
-</div>
+          <label htmlFor="password">Password:</label>
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            rules={{ required: true, minLength: 6 }} // Adding the minLength validation rule
+            render={({ field }) => (
+              <input
+                className="custom-input"
+                placeholder="Your password"
+                {...field}
+                type="password"
+              />
+            )}
+          />
+          {errors.password && <p>Пароль должен совпадать.</p>}
+          {errors.password?.type === "minLength" && (
+            <p>Пароль не менее 6 символов.</p>
+          )}
+        </div>
 
-<div>
-  <label htmlFor="passwordConfirm">Password Confirm:</label>
-  <Controller
-    name="passwordConfirm"
-    control={control}
-    defaultValue=""
-    rules={{ required: true, minLength: 6 }} // Adding the minLength validation rule
-    render={({ field }) => <input className="custom-input" placeholder="Your password" {...field} type="password" />}
-  />
-  {errors.passwordConfirm && <p>Пароль должен совпадать.</p>}
-  {errors.passwordConfirm?.type === "minLength" && <p>Пароль не менее 6 символов.</p>}
-  {passwordMatchError && <p className="error-message">Пароли не совпали</p>}
-</div>
+        <div>
+          <label htmlFor="passwordConfirm">Password Confirm:</label>
+          <Controller
+            name="passwordConfirm"
+            control={control}
+            defaultValue=""
+            rules={{ required: true, minLength: 6 }} // Adding the minLength validation rule
+            render={({ field }) => (
+              <input
+                className="custom-input"
+                placeholder="Confirm password"
+                {...field}
+                type="password"
+              />
+            )}
+          />
+          {errors.passwordConfirm && <p>Пароль должен совпадать.</p>}
+          {errors.passwordConfirm?.type === "minLength" && (
+            <p>Пароль не менее 6 символов.</p>
+          )}
+          {passwordMatchError && (
+            <p className="error-message">Пароли не совпали</p>
+          )}
+        </div>
 
-        <button className="btn-signUp" type="submit" disabled={!watchPassword || watchPassword !== watch('password')}>
+        <button
+          className="btn-signUp"
+          type="submit"
+          disabled={!watchPassword || watchPassword !== watch("password")}
+        >
           Sign Up
         </button>
 
