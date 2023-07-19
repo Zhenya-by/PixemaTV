@@ -10,7 +10,7 @@
     display: none;
   }
   .btn-log{
-    width: 100%;
+    width: auto;
   }
 }
 @media (max-width: 1440px) {
