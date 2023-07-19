@@ -20,7 +20,7 @@
     }
   }
   .btn-log{
-    width: 100%;
+    width: auto;
     background: $contextual-colors-error;
     &:hover{
       background: $tertiary-colors-orange;
@@ -104,6 +104,7 @@
     }
   }
   .btn-log{
+
     background: $contextual-colors-error;
     &:hover{
       background: $tertiary-colors-orange;
