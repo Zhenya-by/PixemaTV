@@ -3,8 +3,8 @@
 </img>
 # Description
 Hello, I present to you my React app, Pixematv. 
-Implemented: Page search, adding movies to favorites, there is a filter by year and movie name, theme change (white, dark). 
-Not implemented: Registration, login, settings.
+Implemented: Page search, adding movies to favorites, there is a filter by year and movie name, theme change (white, dark), implemented user registration and login using firebase.google.. 
+Not implemented: Reset password settings, .
 
 🤔 How to start a project? Perform the following steps:
 <ul>
@@ -22,7 +22,9 @@ Not implemented: Registration, login, settings.
 <li>TypeScript</li>
 <li>Redux-toolkit</li>
 <li>React-router v6</li>
+<li>React-hook-form</li>
 <li>Axios</li>
 <li>OmDb API</li>
 <li>SASS</li>
+<li>Firebase</li>
 </ul>
