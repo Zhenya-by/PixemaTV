@@ -26,8 +26,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(); // Инициализация экземпляра аутентификации
-
 export const FormSignIn: FC<IFormSignIn> = () => {
+  const [errorText, setErrorText] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginSuccess, setLoginSuccess] = useState(false);
@@ -45,11 +45,11 @@ export const FormSignIn: FC<IFormSignIn> = () => {
     return () => unsubscribe();
   }, [auth, navigate]);
 
-  const { 
+  const {
     handleSubmit,
-    control, 
-    formState: { errors }, 
-    setValue 
+    control,
+    formState: { errors },
+    setValue
   } = useForm<{
     name: string;
     email: string;
@@ -91,6 +91,12 @@ export const FormSignIn: FC<IFormSignIn> = () => {
       } else {
         console.error("Error registering user");
       }
+
+      if (error === "auth/user-not-found") {
+        setErrorText("Пользователь не найден");
+      } else {
+        setErrorText("Произошла ошибка при входе. Попробуйте еще раз.");
+      }
     }
   };
 
@@ -105,13 +111,12 @@ export const FormSignIn: FC<IFormSignIn> = () => {
     <form className="formSignIn" onSubmit={onSubmit}>
       <div className="inputWraps">
         <h2 className="h2-SignIn">Sign In</h2>
-        {loginSuccess && (
-          <p className="registration-success">Registration successful!</p>
-        )}
-        {errors.name && <p className="error-message">Username is required and must be at least 3 characters long.</p>}
-        {errors.email && <p className="error-message">Email is required.</p>}
-        {errors.password && <p className="error-message">Password is required.</p>}
-        
+        {loginSuccess ? (
+        <p className="registration-success">Registration successful!</p>
+      ) : (
+        errorText && <p className="registration-error">{errorText}</p>
+      )}
+
         <div>
           <label htmlFor="name">Name:</label>
           <Controller
@@ -119,9 +124,12 @@ export const FormSignIn: FC<IFormSignIn> = () => {
             control={control}
             defaultValue=""
             rules={{ required: true, minLength: 3 }}
-            render={({ field }) => <input className="custom-input" {...field} type="text" />}
+            render={({ field }) => <input 
+            className="custom-input" 
+            placeholder="Your name" {...field} 
+            type="text" />}
           />
-          {errors.name && <span>Name должен быть минимум 3 символа.</span>}
+          {errors.name && <p>Name должен быть минимум 3 символа.</p>}
         </div>
 
         <div>
@@ -131,9 +139,12 @@ export const FormSignIn: FC<IFormSignIn> = () => {
             control={control}
             defaultValue=""
             rules={{ required: true }}
-            render={({ field }) => <input className="custom-input" {...field} type="email" />}
+            render={({ field }) => <input 
+            className="custom-input" 
+            placeholder="Your email" {...field} 
+            type="email" />}
           />
-          {errors.email && <span>Email обязателен к заполнению.</span>}
+          {errors.email && <p>Email обязателен к заполнению.</p>}
         </div>
 
         <div>
@@ -142,16 +153,22 @@ export const FormSignIn: FC<IFormSignIn> = () => {
             name="password"
             control={control}
             defaultValue=""
-            rules={{ required: true }}
-            render={({ field }) => <input className="custom-input" {...field} type="password" />}
+            rules={{ 
+              required: true,
+              minLength: 6 }}
+            render={({ field }) => <input 
+            className="custom-input" 
+            placeholder="Your password" {...field} 
+            type="password" />}
           />
-          {errors.password && <span>Password обязателен к заполнению.</span>}
+          {errors.password?.type === "minLength" && <p>Пароль не менее 6 символов.</p>}
+          {errors.password && <p>Password обязателен к заполнению.</p>}
         </div>
         {/* <Link className="forgot-password" to="/reset-password">
           Forgot password?
         </Link> */}
         <div className="formBtn-Wraps">
-          <button type="submit">Sign in</button>
+          <button className="btn-signIn" type="submit">Sign in</button>
         </div>
         <div className="bottomText">
           <p>Don’t have an account? </p>

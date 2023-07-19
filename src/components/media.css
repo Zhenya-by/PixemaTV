@@ -9,10 +9,18 @@
   .logoImgsMain {
     display: none;
   }
+  .btn-log{
+    width: 100%;
+  }
 }
 @media (max-width: 1440px) {
   main {
     padding: 0 128px;
+  }
+  form .formBtn-Wrap button{
+    padding: 16px 34px;
+    /* display: flex; */
+    column-gap: 40px;
   }
 }
 @media (max-width: 1280px) {
@@ -98,11 +106,7 @@
     justify-content: end;
 
   }
-  form .formBtn-Wrap button{
-    padding: 16px 34px;
-    /* display: flex; */
-    column-gap: 40px;
-  }
+
 }
 @media (max-width: 320px) {
   main {
