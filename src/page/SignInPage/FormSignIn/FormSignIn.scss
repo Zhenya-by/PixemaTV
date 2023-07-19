@@ -9,7 +9,10 @@
     margin-top: 24px;
     .inputWraps{
         // background-color: $background-colors-dark;
-        padding: 40px;
+        padding-right: 80px;
+        padding-left: 60px;
+        padding-top: 40px;
+        padding-bottom: 40px;
         border-radius: 10px;
         display: flex;
     flex-direction: column;
@@ -35,7 +38,9 @@
                 color: $contextual-colors-white;
                 border-radius: 10px;
                 margin-top: 28px;
-                padding: 16px;
+                // padding: 16px;
+                width: 380px;
+                height: 56px;
                 display: flex;
                 justify-content: center;
                 &:hover{
@@ -43,6 +48,7 @@
                 }
 
             }
+
         }
         .bottomText{
             display: flex;
