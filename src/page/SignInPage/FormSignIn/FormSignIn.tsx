@@ -11,8 +11,9 @@ import {
 import { useAppDispatch } from "hooks/redux-hooks";
 import { setUser } from "Store/userSlice";
 import { initializeApp } from "firebase/app";
+import { Controller, useForm } from "react-hook-form";
 
-interface IFormSignIn {}
+interface IFormSignIn { }
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -25,16 +26,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(); // Инициализация экземпляра аутентификации
-
 export const FormSignIn: FC<IFormSignIn> = () => {
+  const [errorText, setErrorText] = useState("");
   const dispatch = useAppDispatch();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isAuth, setIsAuth] = useState(false);
-  const [error, setError] = useState<string | null>(null); // Состояние для сообщения об ошибке
-
   const navigate = useNavigate();
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [isAuth, setIsAuth] = useState(false); // Initialize isAuth state
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -45,58 +42,62 @@ export const FormSignIn: FC<IFormSignIn> = () => {
         setIsAuth(false);
       }
     });
-
     return () => unsubscribe();
   }, [auth, navigate]);
 
-  const handleLogin = (name: string, email: string, password: string) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        console.log(user);
-        dispatch(
-          setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.refreshToken,
-            username: name,
-          })
-        );
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    setValue
+  } = useForm<{
+    name: string;
+    email: string;
+    password: string;
+  }>();
 
-        // Установите имя пользователя с помощью updateProfile
-        updateProfile(user, {
-          displayName: name,
+  const handleLogin = async (data: { name: string; email: string; password: string }) => {
+    const { name, email, password } = data;
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      dispatch(
+        setUser({
+          email: user.email,
+          id: user.uid,
+          token: user.refreshToken,
+          username: name,
         })
-          .then(() => {
-            console.log("Username set:", name);
-            setEmail("");
-            setPassword("");
-            setError(null);
+      );
 
-            localStorage.setItem("name", name);
-            localStorage.setItem("email", email);
-            localStorage.setItem("password", password);
-
-            navigate("/home", { state: { message: "Sign in success" } });
-          })
-          .catch((error) => {
-            console.error("Error setting username:", error);
-          });
-      })
-      .catch((error) => {
-        setError(error.message);
+      // Установите имя пользователя с помощью updateProfile
+      await updateProfile(user, {
+        displayName: name,
       });
-  };
 
-  const handleChangeEmail = (newEmail: string) => {
-    setEmail(newEmail);
-  };
+      console.log("Username set:", name);
+      setValue("name", "");
+      setValue("email", "");
+      setValue("password", "");
+      setLoginSuccess(true);
 
-  const handleChangePassword = (newPassword: string) => {
-    setPassword(newPassword);
-  };
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
 
-  const handleChangeUsername = (newUsername: string) => {
-    setUsername(newUsername);
+      navigate("/home", { state: { message: "Sign in success" } });
+    } catch (error) {
+      if (typeof error === "string") {
+        console.error("Error registering user: " + error);
+      } else {
+        console.error("Error registering user");
+      }
+
+      if (error === "auth/user-not-found") {
+        setErrorText("Пользователь не найден");
+      } else {
+        setErrorText("Произошла ошибка при входе. Попробуйте еще раз.");
+      }
+    }
   };
 
   if (isAuth) {
@@ -104,44 +105,70 @@ export const FormSignIn: FC<IFormSignIn> = () => {
     return null; // Вернуть пустой компонент, так как перенаправление уже произошло
   }
 
+  const onSubmit = handleSubmit(handleLogin);
+
   return (
-    <form
-      className="formSignIn"
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleLogin(username, email, password);
-      }}
-    >
+    <form className="formSignIn" onSubmit={onSubmit}>
       <div className="inputWraps">
         <h2 className="h2-SignIn">Sign In</h2>
-        {error && <p className="error-message">{error}</p>}
-        <Input
-          title="Username" // Добавлено поле для ввода имени пользователя
-          placeholder="Your Username"
-          value={username}
-          handleChange={handleChangeUsername}
-          isDisabled={false}
-        />
-        <Input
-          title="Email"
-          placeholder="Your Email"
-          value={email}
-          handleChange={handleChangeEmail}
-          isDisabled={false}
-        />
-        <Input
-          title="Password"
-          placeholder="Your Password"
-          value={password}
-          handleChange={handleChangePassword}
-          isDisabled={false}
-          type="password"
-        />
-        <Link className="forgot-password" to="/reset-password">
+        {loginSuccess ? (
+        <p className="registration-success">Registration successful!</p>
+      ) : (
+        errorText && <p className="registration-error">{errorText}</p>
+      )}
+
+        <div>
+          <label htmlFor="name">Name:</label>
+          <Controller
+            name="name"
+            control={control}
+            defaultValue=""
+            rules={{ required: true, minLength: 3 }}
+            render={({ field }) => <input 
+            className="custom-input" 
+            placeholder="Your name" {...field} 
+            type="text" />}
+          />
+          {errors.name && <p>Name должен быть минимум 3 символа.</p>}
+        </div>
+
+        <div>
+          <label htmlFor="email">Email:</label>
+          <Controller
+            name="email"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => <input 
+            className="custom-input" 
+            placeholder="Your email" {...field} 
+            type="email" />}
+          />
+          {errors.email && <p>Email обязателен к заполнению.</p>}
+        </div>
+
+        <div>
+          <label htmlFor="password">Password:</label>
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            rules={{ 
+              required: true,
+              minLength: 6 }}
+            render={({ field }) => <input 
+            className="custom-input" 
+            placeholder="Your password" {...field} 
+            type="password" />}
+          />
+          {errors.password?.type === "minLength" && <p>Пароль не менее 6 символов.</p>}
+          {errors.password && <p>Password обязателен к заполнению.</p>}
+        </div>
+        {/* <Link className="forgot-password" to="/reset-password">
           Forgot password?
-        </Link>
+        </Link> */}
         <div className="formBtn-Wraps">
-          <button type="submit">Sign in</button>
+          <button className="btn-signIn" type="submit">Sign in</button>
         </div>
         <div className="bottomText">
           <p>Don’t have an account? </p>

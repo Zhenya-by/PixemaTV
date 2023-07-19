@@ -1,0 +1,30 @@
+@import "/src/App.scss";
+
+form {
+    label{
+        display: flex;
+        margin-bottom: 10px;
+    }
+    .custom-input{
+        background-color: $contextual-colors-white;
+        outline-offset: -2px ;
+        outline: 2px solid $system-colors-secondary;
+        border-radius: 10px;
+        display: flex;
+        color: $system-colors-primary;
+        border: none;
+        width: 100%;
+        height: 56px;
+        padding-left: 20px;
+
+
+    }
+    .btn-signUp {
+        margin-top: 20px;
+        height: 56px;
+        display: flex;
+        width: 380px;
+
+        justify-content: center;
+    }
+}

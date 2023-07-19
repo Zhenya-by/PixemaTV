@@ -1,7 +1,7 @@
 @import "/src/App.scss";
 .h2-SignIn {
     color: $contextual-colors-white;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 .formSignIn{
     width: 100%;
@@ -9,9 +9,13 @@
     margin-top: 24px;
     .inputWraps{
         // background-color: $background-colors-dark;
-        padding: 40px;
+        padding-right: 80px;
+        padding-left: 60px;
+        padding-top: 40px;
+        padding-bottom: 40px;
         border-radius: 10px;
         display: flex;
+        row-gap: 20px;
     flex-direction: column;
     position: relative;
     .forgot-password {
@@ -35,7 +39,9 @@
                 color: $contextual-colors-white;
                 border-radius: 10px;
                 margin-top: 28px;
-                padding: 16px;
+                // padding: 16px;
+                width: 380px;
+                height: 56px;
                 display: flex;
                 justify-content: center;
                 &:hover{
@@ -43,6 +49,7 @@
                 }
 
             }
+
         }
         .bottomText{
             display: flex;

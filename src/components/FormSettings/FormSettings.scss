@@ -1,6 +1,23 @@
 @import "/src/App.scss";
 .dark {
+  label {
+    color: $contextual-colors-white;
+  }
+  .custom-input{
+    background-color: $background-colors-graphite;
+    outline-offset: 0px ;
+        outline: 0px solid $system-colors-secondary;
+    &:hover{
+      outline-offset: -2px ;
+      outline: 2px solid $system-colors-primary-2;
+    }
+    &:focus {
+      outline-offset: -2px;
+      outline: 2px solid $system-colors-primary;
+    }
+  }
   .btn-log{
+    width: 100%;
     background: $contextual-colors-error;
     &:hover{
       background: $tertiary-colors-orange;
@@ -70,6 +87,19 @@
 }
 
 .light {
+  .custom-input{
+    background-color: $contextual-colors-white;
+    // outline-offset: 0px ;
+    //     outline: 0px solid $system-colors-secondary;
+    &:hover{
+      outline-offset: -2px ;
+      outline: 2px solid $system-colors-primary-2;
+    }
+    &:focus {
+      outline-offset: -2px;
+      outline: 2px solid $system-colors-primary;
+    }
+  }
   .btn-log{
     background: $contextual-colors-error;
     &:hover{

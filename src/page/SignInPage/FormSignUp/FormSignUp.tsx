@@ -3,6 +3,7 @@ import "./FormSignUp.scss";
 import { Input } from "../SignUp/Input/Input";
 import { Link } from "react-router-dom";
 import { initializeApp } from "firebase/app";
+import { useForm, Controller } from 'react-hook-form';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -10,6 +11,7 @@ import {
 } from "firebase/auth";
 import { setUser } from "../../../Store/userSlice";
 import { useAppDispatch } from "../../../hooks/redux-hooks";
+import { SubmitHandler } from 'react-hook-form';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -23,126 +25,141 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(); // Initialize auth instance
 
-interface IFormSignUp {}
+interface IFormSignUp { }
 
 export const FormSignUp: FC<IFormSignUp> = () => {
   // const username = useAppSelector((state) => state.user.email);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const dispatch = useAppDispatch();
   const [registrationSuccess, setRegistrationSuccess] = useState(false); // State variable for registration success
 
-  const handleChangeName = (newName: string) => {
-    setUsername(newName);
-  };
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    watch,
+    setValue
+  } = useForm<{ name: string; email: string; password: string; passwordConfirm: string }>();
 
-  const handleChangeEmail = (newEmail: string) => {
-    setEmail(newEmail);
-  };
+  const watchPassword = watch('password');
 
-  const handleChangePassword = (newPassword: string) => {
-    setPassword(newPassword);
-  };
-
-  const handleChangePasswordConfirm = (newPassword: string) => {
-    setPasswordConfirm(newPassword);
-  };
-
-  const dispatch = useAppDispatch();
-
-  const handleRegister = (
+  const handleRegister = async (
     name: string,
     email: string,
     password: string,
     passwordConfirm: string
   ) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        console.log(user);
-        dispatch(
-          setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.refreshToken,
-            username: name,
-          })
-        );
-
-        // Set username using updateProfile
-        updateProfile(user, {
-          displayName: name,
+    try {
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(user);
+      dispatch(
+        setUser({
+          email: user.email,
+          id: user.uid,
+          token: user.refreshToken,
+          username: name,
         })
-          .then(() => {
-            console.log("Username set:", name);
-            setUsername("");
-            setEmail("");
-            setPassword("");
-            setPasswordConfirm("");
-            setRegistrationSuccess(true);
+      );
 
-            localStorage.setItem("name", name);
-            localStorage.setItem("email", email);
-            localStorage.setItem("password", password);
-          })
-          .catch((error) => {
-            console.error("Error setting username:", error);
-          });
-      })
-      .catch(console.error);
+      // Set username using updateProfile
+      await updateProfile(user, {
+        displayName: name,
+      });
+
+      console.log("Username set:", name);
+      setValue("name", "");
+      setValue("email", "");
+      setValue("password", "");
+      setValue("passwordConfirm", "");
+      setRegistrationSuccess(true);
+
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+    } catch (error) {
+      console.error("Error registering user:", error);
+    }
+  };
+
+  const [passwordMatchError, setPasswordMatchError] = useState(false);
+
+  const onSubmit: SubmitHandler<{ name: string; email: string; password: string; passwordConfirm: string }> = (data) => {
+    const { name, email, password, passwordConfirm } = data; // Destructure form data
+
+    if (password === passwordConfirm) {
+      // Passwords match, handle registration
+      handleRegister(name, email, password, passwordConfirm);
+
+      // Reset the password matching error
+      setPasswordMatchError(false);
+    } else {
+      // Passwords don't match, set the password matching error
+      setPasswordMatchError(true);
+    }
   };
 
   return (
-    <form
-      className="formSignIn"
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleRegister(username, email, password, passwordConfirm);
-      }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="formSignIn">
       <div className="inputWraps">
         <h2 className="h2-SignIn">Sign Up</h2>
         {registrationSuccess && (
-          <p className="registration-success">Registration successful!</p>
-        )}{" "}
-        {/* Render registration success message */}
-        <Input
-          title="Name"
-          placeholder="Your Name"
-          value={username}
-          handleChange={handleChangeName}
-          isDisabled={false}
-          type="text"
-        />
-        <Input
-          title="Email"
-          placeholder="Your Email"
-          value={email}
-          handleChange={handleChangeEmail}
-          isDisabled={false}
-        />
-        <Input
-          title="Password"
-          placeholder="Your Password"
-          value={password}
-          handleChange={handleChangePassword}
-          isDisabled={false}
-          type="password"
-        />
-        <Link className="forgot-password" to="/reset-password">
-          Forgot password?
-        </Link>
-        <Input
-          title="Confirm Password"
-          placeholder="Confirm Password"
-          value={passwordConfirm}
-          handleChange={handleChangePasswordConfirm}
-          isDisabled={false}
-          type="password"
-        />
-        <div className="formBtn-Wraps">
-          <button type="submit">Sign Up</button>
+          <p className="registration-success">Регистрация прошла успешно!</p>
+        )}
+
+        <div>
+          <label htmlFor="name">Name:</label>
+          <Controller
+            name="name"
+            control={control}
+            defaultValue=""
+            rules={{ required: true, minLength: 3 }}
+            render={({ field }) => <input className="custom-input" placeholder="Your name" {...field} type="text" />}
+          />
+          {errors.name && <p>Name должен быть минимум 3 символа.</p>}
         </div>
+
+        <div>
+          <label htmlFor="email">Email:</label>
+          <Controller
+            name="email"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => <input className="custom-input" placeholder="Your email" {...field} type="email" />}
+          />
+           {errors.email ? <p>Email обязателен к заполнению.</p> : <p></p>}
+        </div>
+
+        <div>
+  <label htmlFor="password">Password:</label>
+  <Controller
+    name="password"
+    control={control}
+    defaultValue=""
+    rules={{ required: true, minLength: 6 }} // Adding the minLength validation rule
+    render={({ field }) => <input className="custom-input" placeholder="Your password" {...field} type="password" />}
+  />
+  {errors.password && <p>Пароль должен совпадать.</p>}
+  {errors.password?.type === "minLength" && <p>Пароль не менее 6 символов.</p>}
+</div>
+
+<div>
+  <label htmlFor="passwordConfirm">Password Confirm:</label>
+  <Controller
+    name="passwordConfirm"
+    control={control}
+    defaultValue=""
+    rules={{ required: true, minLength: 6 }} // Adding the minLength validation rule
+    render={({ field }) => <input className="custom-input" placeholder="Your password" {...field} type="password" />}
+  />
+  {errors.passwordConfirm && <p>Пароль должен совпадать.</p>}
+  {errors.passwordConfirm?.type === "minLength" && <p>Пароль не менее 6 символов.</p>}
+  {passwordMatchError && <p className="error-message">Пароли не совпали</p>}
+</div>
+
+        <button className="btn-signUp" type="submit" disabled={!watchPassword || watchPassword !== watch('password')}>
+          Sign Up
+        </button>
+
         <div className="bottomText">
           <p>Don’t have an account?</p>{" "}
           <Link className="link-colors" to="/sign-in">
