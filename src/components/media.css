@@ -19,7 +19,6 @@
   }
   form .formBtn-Wrap button{
     padding: 16px 34px;
-    /* display: flex; */
     column-gap: 40px;
   }
 }
@@ -67,7 +66,6 @@
   }
   .card-wrap {
     gap: 32px;
-    /* width: 208px; */
   }
   .card-wrap .movie-card .img-poster img {
     max-width: 208px;
@@ -78,9 +76,6 @@
   .card-wrap .movie-card {
     max-width: 208px;
   }
-  /* .container{
-        width: 928px;
-    } */
 }
 @media (max-width: 1024px) {
   main {
@@ -101,7 +96,6 @@
     flex-wrap: wrap;
   }
   form .formBtn-Wrap{
-    /* display: flex; */
     column-gap: 40px;
     justify-content: end;
 
@@ -120,8 +114,6 @@
   .SearchMovies--search-container .search-wrap {
     position: relative;
     width: 100%;
-
-    /* flex-flow: column; */
     display: flex;
     flex-flow: row;
     order: 1;
@@ -141,9 +133,6 @@
   .card-container .movie-card .img-poster img{
     height: 396px;
   }
-  /* .card-wrap .movie-card .img-poster img{
-    min-height: 365px;
-  } */
   .card-wrap .movie-card {
     min-width: 272px;
   }
@@ -173,9 +162,7 @@
     flex-wrap: wrap;
     gap: 24px;
   }
-  .input-wrapper .input{
-    /* width: 100%; */
-  }
+
   .inputWrap {
     width: auto;
     max-width: 200px;
@@ -206,13 +193,4 @@
     height: 396px;
    }
 }
-/* @media (max-width: 992px) and (min-width: 1199px) {
-}
-@media (min-width: 768px) and (max-width: 991px) {
-}
-@media (min-width: 480px) and (max-width: 767px) {
-}
-@media (min-width: 320px) and (max-width: 479px) {
-}
-@media (max-width: 320px) {
-} */
+
